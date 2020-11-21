@@ -1,4 +1,4 @@
-//const connectDB = require('./config/db');
+const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const createError = require('http-errors');
@@ -16,7 +16,7 @@ const path = require('path');
 const rateLimit = require('express-rate-limit');
 //const { RATE_LIMIT } = require('./config/config');
 const session = require('express-session');
-//const { SESSION_EXP, SESSION_SECRET, ISDEV } = require('./config/config');
+const { ISDEV } = require('./config/config');
 const SessionMemory = require('memorystore')(session);
 //const checkResType = require('./middleware/checkResType');
 const xss = require('xss-clean');
@@ -26,5 +26,6 @@ const xss = require('xss-clean');
  */
 
 const app = express();
+connectDB();
 
 module.exports = app;
