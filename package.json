@@ -7,7 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node server.js",
     "dev": "NODE_ENV=development nodemon -r dotenv/config server.js",
-    "css:dev": "node-sass scss/styles.scss app/public/css/styles.css --output-style expanded"
+    "css:dev": "node-sass scss/styles.scss app/public/css/styles.css --output-style expanded",
+    "css:watch": "node-sass scss/styles.scss app/public/css/styles.css --output-style expanded --watch",
+    "css:compile": "node-sass scss/styles.scss scss/raw.css",
+    "css:prefix": "postcss scss/raw.css --use autoprefixer --no-map -o scss/prefix.css",
+    "css:compress": "node-sass scss/prefix.css app/public/styles.css --output-style compressed",
+    "css:expanded": "node-sass scss/prefix.css app/public/styles.css --output-style expanded",
+    "css:build": "npm-run-all css:compile css:prefix css:expanded"
   },
   "repository": {
     "type": "git",
