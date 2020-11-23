@@ -13,7 +13,8 @@
     "css:prefix": "postcss scss/raw.css --use autoprefixer --no-map -o scss/prefix.css",
     "css:compress": "node-sass scss/prefix.css app/public/styles.css --output-style compressed",
     "css:expanded": "node-sass scss/prefix.css app/public/styles.css --output-style expanded",
-    "css:build": "npm-run-all css:compile css:prefix css:expanded"
+    "css:build": "npm-run-all css:compile css:prefix css:expanded",
+    "css:production": "npm-run-all css:compile css:prefix css:compress"
   },
   "repository": {
     "type": "git",
