@@ -15,75 +15,125 @@ const handleError = async function(err, req, res, next) {
     console.log('****************************');
   }  
 
-  switch(err.name) {
-    case 'NotFoundError':
-      // if(html) {
-      //   return res
-      //     .status(404)
-      //     .render('pages/error', {
-      //       status: 404,
-      //       title: 'error',
-      //       msg: 'Page not found'
-      //     })
-      // }
-      return res
-        .status(404)
-        .json({
-          status: err.status,
-          msg: err.message
-        });
-      break;
-    case 'ReferenceError':
-      // if(html) {
-      //   return res
-      //     .status(500)
-      //     .render('pages/error', {
-      //       status: 404,
-      //       title: 'error',
-      //       msg: 'Internal Server Error (reference)'
-      //     })
-      // }      
-      return res
-        .status(500)
-        .json({
-          status: err.status,
-          msg: err.message
-        });
-      break; 
-    case 'CastError': 
-      // if(html) {
-      //   return res
-      //     .status(404)
-      //     .render('pages/error', {
-      //       status: 404,
-      //       title: 'error',
-      //       msg: 'Resource not found'
-      //     })
-      // }    
-      return res
-        .status(404) 
-        .json({
-          status: 404,
-          msg: err.message
-        });
+  if(html) {
+    switch(err.name) {
+      case 'NotFoundError':
+        return res
+          .status(404)
+          .json({
+            status: err.status,
+            msg: err.message
+          });
         break;
-    default:
-      // if(html) {
-      //   return res
-      //     .status(500)
-      //     .render('pages/error', {
-      //       status: 500,
-      //       title: 'error',
-      //       msg: err.message
-      //     })
-      // }      
-      return res
-        .status(500) 
-        .json({
-          status: 500,
-          msg: err.message
-        }); 
-  }  
+      case 'ReferenceError':
+        return res
+          .status(500)
+          .json({
+            status: err.status,
+            msg: err.message
+          });
+        break; 
+      case 'CastError':  
+        return res
+          .status(404) 
+          .json({
+            status: 404,
+            msg: err.message
+          });
+          break;
+      default:     
+        return res
+          .status(500) 
+          .json({
+            status: 500,
+            msg: err.message
+          }); 
+    } 
+  }
+
+  if(json) {
+    jsonReply(err);
+  }
+
+  if(html) {
+    htmlReply(err);
+  }
+
+  function jsonReply(err) {
+    switch(err.name) {
+      case 'NotFoundError':
+        return res
+          .status(404)
+          .json({
+            status: err.status,
+            msg: err.message
+          });
+        break;
+      case 'ReferenceError':
+        return res
+          .status(500)
+          .json({
+            status: err.status,
+            msg: err.message
+          });
+        break; 
+      case 'CastError':  
+        return res
+          .status(404) 
+          .json({
+            status: 404,
+            msg: err.message
+          });
+          break;
+      default:     
+        return res
+          .status(500) 
+          .json({
+            status: 500,
+            msg: err.message
+          }); 
+    } 
+  }
+
+  function htmlReply(err) {
+    switch(err.name) {
+      case 'NotFoundError':
+        return res
+          .status(404)
+          .json({
+            status: err.status,
+            msg: err.message
+          });
+        break;
+      case 'ReferenceError':
+        return res
+          .status(500)
+          .json({
+            status: err.status,
+            msg: err.message
+          });
+        break; 
+      case 'CastError':  
+        return res
+          .status(404) 
+          .json({
+            status: 404,
+            msg: err.message
+          });
+          break;
+      default:     
+        return res
+          .status(500) 
+          .json({
+            status: 500,
+            msg: err.message
+          }); 
+    } 
+  }
+
+
+
+ 
 
 }
 
