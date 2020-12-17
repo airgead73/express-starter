@@ -12,7 +12,7 @@ exports.landing = asyncHandler(async function(req, res, next) {
     .status(200)
     .render('pages/index', {
       success: true,
-      title: 'portfolio'
+      title: 'express starter'
     });
 
 });
@@ -27,7 +27,7 @@ exports.projects = asyncHandler(async function(req, res, next) {
 
   return res
     .status(200)
-    .render('pages/projects', {
+    .render('pages/projects/index', {
       success: true,
       title: 'projects'
     });
@@ -46,7 +46,7 @@ exports.pages = asyncHandler(async function(req, res, next) {
 
   return res
     .status(200)
-    .render('pages/index', {
+    .render(`pages/${page}`, {
       success: true,
       title: page
     });

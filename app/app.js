@@ -112,18 +112,23 @@ app.use('/', require('./routes/client/clientRoutes'));
  */
 
 app.use(function(req, res, next) {
-  next(createError(404, 'Resource not found'))
+  next(createError(404, 'Page not found'))
 })
 
 app.use((error, req, res, next) => {
 
+  console.log(error.status);
+
+  const status = error.status || 500;
+  const message = status === 500 ? 'Page not found' : error.message;
+
   return res
-    .status(200)
+    .status(status)
     .render('pages/error', {
       success: false,
       title: 'error',
-      status: error.status,
-      msg: error.message
+      status: status,
+      msg: message
     });
 
 });
