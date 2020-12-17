@@ -35,7 +35,9 @@
   "devDependencies": {
     "autoprefixer": "^10.0.2",
     "bootstrap": "^4.5.3",
+    "bootswatch": "^4.5.3",
     "dotenv": "^8.2.0",
+    "jquery": "^3.5.1",
     "morgan": "^1.10.0",
     "node-sass": "^5.0.0",
     "nodemon": "^2.0.6",
@@ -45,6 +47,7 @@
   },
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
+    "cloudinary": "^1.23.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
