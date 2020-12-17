@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> _head}}
+
+<body>
+  {{> _header}}
+  <main>
+  {{{body}}}
+  </main>
+  {{#if script_work}}  
+  {{> _scripts}}
+  {{/if}}
+</body>
+
+</html>

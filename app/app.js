@@ -79,4 +79,38 @@ if (ISDEV) {
   app.use(logger('dev'));
 }
 
+/**
+ * @desc LOAD ROUTES
+ */
+
+// client
+app.use('/', require('./routes/client/indexRoutes'));
+
+/**
+ * @desc ERROR HANDLING
+ */
+
+app.use(function(req, res, next) {
+  next(createError(404, 'Resource not found'))
+})
+
+app.use((error, req, res, next) => {
+
+  return res
+    .status(200)
+    .render('pages/error', {
+      success: false,
+      title: 'error',
+      status: error.status,
+      msg: error.message
+    });
+
+});
+
+
+/**
+ * @desc EXPORT
+ */
+
+
 module.exports = app;
