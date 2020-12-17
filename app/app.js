@@ -6,7 +6,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const flash = require('connect-flash');
 const Handlebars = require('handlebars');
-//const handleError = require('./middleware/handleError');
+const handleError = require('./middleware/handleError');
 const helmet = require('helmet');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const hpp = require('hpp');
@@ -18,7 +18,6 @@ const { RATE_LIMIT } = require('./config/config');
 const session = require('express-session');
 const { SESSION_EXP, SESSION_SECRET, ISDEV } = require('./config/config');
 const SessionMemory = require('memorystore')(session);
-//const checkResType = require('./middleware/checkResType');
 const xss = require('xss-clean');
 
 /**
@@ -37,10 +36,33 @@ app.use(hpp());
 app.use(cors());
 app.use(mongoSanitize());
 const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 mins
+  //windowMs: 10 * 60 * 10000, // 10 mins
+  windowMs: 10 * 60 * 10,
   max: RATE_LIMIT
 });
 app.use(limiter);
+
+/**
+ * @desc VIEW ENGINE
+ */
+
+const {
+  truncate,
+  stripTags,
+  formatDate,
+  select
+} = require('./utils/hbs');
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+app.engine('hbs', exphbs({
+  handlebars: allowInsecurePrototypeAccess(Handlebars),
+  helpers: { truncate, stripTags, formatDate, select },
+  defaultLayout: 'main',
+  extname: '.hbs',
+  layoutsDir: __dirname + '/views/layouts',
+  partialsDir: __dirname + '/views/partials'
+}));
 
 /** 
  * @desc EXPRESS MIDDLEWARE
@@ -52,7 +74,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(flash());
 app.use(methodOverride('_method'));
-//app.use(checkResType);
 app.use(session({
  secret: SESSION_SECRET,
  resave: true,
@@ -111,6 +132,5 @@ app.use((error, req, res, next) => {
 /**
  * @desc EXPORT
  */
-
 
 module.exports = app;
