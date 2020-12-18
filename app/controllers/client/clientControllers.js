@@ -12,7 +12,7 @@ exports.landing = asyncHandler(async function(req, res, next) {
     .status(200)
     .render('pages/index', {
       success: true,
-      title: 'express starter'
+      title: 'express starter',
     });
 
 });
