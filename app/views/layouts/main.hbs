@@ -2,11 +2,12 @@
 <html lang="en">
 {{> _head}}
 
-<body>
+<body class="d-flex flex-column min-vh-100">
   {{> _header}}
   <main>
   {{{body}}}
   </main>
+  {{> _footer}}
   {{#if script_work}}  
   {{> _scripts}}
   {{/if}}

@@ -15,18 +15,32 @@ module.exports = {
     const iso = date.toISOString();
     return moment(iso).format(format);
   },
-  navActive: function(classBase, linkText, page) {
-    let classStr;
+  checkActive: function(linkText, page) {
+    let activeStr;
 
     if(page === linkText) {
-      classStr = `${classBase} active`;
+      activeStr = ' active';
     } else {
-      classStr = classBase;
+      activeStr = '';
     }
 
-    return classStr;
+    console.log('active:', activeStr)
+
+    return activeStr;
 
   },
+  checkCurrent: function(linkText, page) {
+    // const currentSpan = document.createElement('span');
+    // currentSpan.setAttribute('class', 'sr-only');
+    // currentSpan.textContent = '(current)';
+
+    if(page === linkText) {
+      return currentSpan;
+    } else {
+      return;
+    }
+
+  },  
   stripTags: function (input) {
     return input.replace(/<(?:.|\n)*?>/gm, '');
   },

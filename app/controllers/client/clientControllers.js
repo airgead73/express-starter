@@ -29,7 +29,8 @@ exports.projects = asyncHandler(async function(req, res, next) {
     .status(200)
     .render('pages/projects/index', {
       success: true,
-      title: 'projects'
+      title: 'projects',
+      projects: true
     });
 
 });
@@ -48,7 +49,8 @@ exports.pages = asyncHandler(async function(req, res, next) {
     .status(200)
     .render(`pages/${page}`, {
       success: true,
-      title: page
+      title: page,
+      [page]: true
     });
 
 });

@@ -50,14 +50,16 @@ const {
   truncate,
   stripTags,
   formatDate,
-  select
+  select,
+  checkActive,
+  checkCurrent
 } = require('./utils/hbs');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.engine('hbs', exphbs({
   handlebars: allowInsecurePrototypeAccess(Handlebars),
-  helpers: { truncate, stripTags, formatDate, select },
+  helpers: { truncate, stripTags, formatDate, select, checkActive, checkCurrent},
   defaultLayout: 'main',
   extname: '.hbs',
   layoutsDir: __dirname + '/views/layouts',

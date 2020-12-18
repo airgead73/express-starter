@@ -9,17 +9,17 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/projects">projects <span class="sr-only">(current)</span></a>
+          <li class="nav-item{{#if projects}} active{{/if}}">
+            <a class="nav-link" href="/projects">projects</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item{{#if about}} active{{/if}}">
             <a class="nav-link" href="/about">about</a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item{{#if contact}} active{{/if}}">
             <a class="nav-link" href="/contact">contact</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item{{#if profile}} active{{/if}}">
             <a class="nav-link" href="/profile">profile</a>
           </li>
         </ul>
