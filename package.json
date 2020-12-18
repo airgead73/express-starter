@@ -68,6 +68,12 @@
     "xss-clean": "^0.1.1"
   },
   "browserslist": [
-    "defaults"
+    "IE 11",
+    "Edge 16",
+    "Safar 8",
+    "last 3 Chrome versions",
+    "last 3 FireFox versions",
+    "last 3 iOS versions",
+    "last 3 Android versions"
   ]
 }
