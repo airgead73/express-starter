@@ -108,6 +108,7 @@ if (ISDEV) {
 
 // client
 app.use('/', require('./routes/client/clientRoutes'));
+app.use('/projects', require('./routes/client/projectRoutes'));
 
 /**
  * @desc ERROR HANDLING

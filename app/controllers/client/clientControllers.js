@@ -20,24 +20,6 @@ exports.landing = asyncHandler(async function(req, res, next) {
 });
 
 /**
- * @route   GET /projects
- * @desc    view projects page
- * @access  private
- */
-
-exports.projects = asyncHandler(async function(req, res, next) {   
-
-  return res
-    .status(200)
-    .render('pages/projects/index', {
-      success: true,
-      title: 'projects',
-      links: configureLinks('projects')
-    });
-
-});
-
-/**
  * @route   GET /about
  * @desc    view about
  * @access  private
@@ -75,6 +57,24 @@ exports.profile = asyncHandler(async function(req, res, next) {
       success: true,
       title: 'profile',
       links: configureLinks('profile')
+    });
+
+});
+
+/**
+ * @route   GET /projects
+ * @desc    view projects page
+ * @access  private
+ */
+
+exports.projects = asyncHandler(async function(req, res, next) {   
+
+  return res
+    .status(200)
+    .render('pages/projects/index', {
+      success: true,
+      title: 'projects',
+      links: configureLinks('projects')
     });
 
 });
