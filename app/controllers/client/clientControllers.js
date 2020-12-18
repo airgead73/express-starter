@@ -37,6 +37,13 @@ exports.about = asyncHandler(async function(req, res, next) {
 
 });
 
+
+/**
+ * @route   GET /contact
+ * @desc    view contact
+ * @access  private
+ */
+
 exports.contact = asyncHandler(async function(req, res, next) {
 
   return res
@@ -48,6 +55,13 @@ exports.contact = asyncHandler(async function(req, res, next) {
     });
 
 });
+
+
+/**
+ * @route   GET /profile
+ * @desc    view profile
+ * @access  private
+ */
 
 exports.profile = asyncHandler(async function(req, res, next) {
 
@@ -61,21 +75,24 @@ exports.profile = asyncHandler(async function(req, res, next) {
 
 });
 
+
 /**
- * @route   GET /projects
- * @desc    view projects page
- * @access  private
+ * @route   GET /signin
+ * @desc    view signin
+ * @access  public
  */
 
-exports.projects = asyncHandler(async function(req, res, next) {   
+exports.signin = asyncHandler(async function(req, res, next) {
 
   return res
     .status(200)
-    .render('pages/projects/index', {
+    .render('pages/signin', {
       success: true,
-      title: 'projects',
-      links: configureLinks('projects')
+      title: 'signin',
+      links: configureLinks('signin')
     });
 
 });
+
+
 
