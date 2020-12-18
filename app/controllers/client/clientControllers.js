@@ -1,4 +1,5 @@
 const asyncHandler = require('../../middleware/handleAsync');
+const { configureLinks } = require('../../config/nav');
 
 /**
  * @route   GET /
@@ -13,6 +14,7 @@ exports.landing = asyncHandler(async function(req, res, next) {
     .render('pages/index', {
       success: true,
       title: 'express starter',
+      links: configureLinks('landing')
     });
 
 });
@@ -30,27 +32,50 @@ exports.projects = asyncHandler(async function(req, res, next) {
     .render('pages/projects/index', {
       success: true,
       title: 'projects',
-      projects: true
+      links: configureLinks('projects')
     });
 
 });
 
 /**
- * @route   GET /:page
- * @desc    view pages
+ * @route   GET /about
+ * @desc    view about
  * @access  private
  */
 
-exports.pages = asyncHandler(async function(req, res, next) {
-
-  const { page } = req.params;
+exports.about = asyncHandler(async function(req, res, next) {
 
   return res
     .status(200)
-    .render(`pages/${page}`, {
+    .render('pages/about', {
       success: true,
-      title: page,
-      [page]: true
+      title: 'about',
+      links: configureLinks('about')
     });
 
 });
+
+exports.contact = asyncHandler(async function(req, res, next) {
+
+  return res
+    .status(200)
+    .render('pages/contact', {
+      success: true,
+      title: 'contact',
+      links: configureLinks('contact')
+    });
+
+});
+
+exports.profile = asyncHandler(async function(req, res, next) {
+
+  return res
+    .status(200)
+    .render('pages/profile', {
+      success: true,
+      title: 'profile',
+      links: configureLinks('profile')
+    });
+
+});
+

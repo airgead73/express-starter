@@ -1,4 +1,4 @@
-const { ISDEV } = require('../config/config');
+const { ISDEV } = require('../config/env');
 
 const handleError = async function(err, req, res, next) {
 

@@ -1,8 +1,23 @@
 const links = [
-  'projects',
-  'about',
-  'contact',
-  'profile'
-]
+  {  text: 'projects' },
+  {  text: 'about' },
+  {  text: 'contact' },
+  {  text: 'profile' }
+];
 
-module.exports = links;
+const configureLinks = function(text) {
+
+  const toConfigure = [];
+
+  links.forEach(link => {
+    let configuredLink = {};
+    configuredLink.text = link.text;
+    configuredLink.active = link.text === text ? true : false;
+    toConfigure.push(configuredLink);
+  });
+  
+  return toConfigure;
+
+}
+
+module.exports = { configureLinks };

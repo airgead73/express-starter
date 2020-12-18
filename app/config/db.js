@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { DB, DB_DEV, ISDEV } = require('./config');
+const { DB, DB_DEV, ISDEV } = require('./env');
 const URI = ISDEV ? DB_DEV : DB;
 
 const connectDB = async () => {

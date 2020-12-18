@@ -14,9 +14,9 @@ const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
-const { RATE_LIMIT } = require('./config/config');
+const { RATE_LIMIT } = require('./config/env');
 const session = require('express-session');
-const { SESSION_EXP, SESSION_SECRET, ISDEV } = require('./config/config');
+const { SESSION_EXP, SESSION_SECRET, ISDEV } = require('./config/env');
 const SessionMemory = require('memorystore')(session);
 const xss = require('xss-clean');
 
@@ -94,7 +94,6 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.user = req.user || null;
   res.locals.username = null;
-  res.locals.links = require('./config/nav');
   next();
 }); 
 
