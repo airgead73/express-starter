@@ -111,7 +111,8 @@ if (ISDEV) {
 // api
 app.use('/api/projects', require('./routes/api/projectRoutes'));
 app.use('/api/templates', require('./routes/api/templateRoutes'));
-app.use('/api/users', require('./routes/api/userRoutes'))
+app.use('/api/users', require('./routes/api/userRoutes'));
+app.use('/api/auth', require('./routes/api/authRoutes'));
 
 // client
 app.use('/', require('./routes/client/clientRoutes'));

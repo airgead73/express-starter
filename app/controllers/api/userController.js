@@ -87,6 +87,24 @@ exports.detail = asyncHandler(async function(req, res, next) {
 });
 
 /**
+ * @route   GET /auth/user
+ * @desc    get current user
+ * @access  private
+ */
+
+exports.current = asyncHandler(async function(req, res, next) {
+
+  res
+  .status(200)
+  .json({
+    success: true,
+    msg: 'Read current user',
+    user: res.locals.checked_user
+  });
+
+})
+
+/**
  * @route   PUT /:userID
  * @desc    update user
  * @access  private
