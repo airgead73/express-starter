@@ -25,6 +25,8 @@ exports.create = asyncHandler(async function(req, res, next) {
 
 exports.read = asyncHandler(async function(req, res, next) {
 
+  console.log(req.headers.accept)
+
   return res
     .status(200)
     .json({

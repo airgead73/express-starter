@@ -94,6 +94,8 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.user = req.user || null;
   res.locals.username = null;
+  console.log(req.originalUrl);
+  console.log(req.path);
   next();
 }); 
 
@@ -107,8 +109,9 @@ if (ISDEV) {
  */
 
 // api
-app.use('/api/projects', require('./routes/api/projectRoutes'))
-app.use('/api/templates', require('./routes/api/templateRoutes'))
+app.use('/api/projects', require('./routes/api/projectRoutes'));
+app.use('/api/templates', require('./routes/api/templateRoutes'));
+app.use('/api/users', require('./routes/api/userRoutes'))
 
 // client
 app.use('/', require('./routes/client/clientRoutes'));
@@ -122,23 +125,32 @@ app.use(function(req, res, next) {
   next(createError(404, 'Page not found'))
 })
 
-app.use((error, req, res, next) => {
+// app.use((error, req, res, next) => {
 
-  console.log(error.status);
+//   let status = error.status || 500;
+//   let message = error.message || 'Resource not found'
 
-  const status = error.status || 500;
-  const message = status === 500 ? 'Page not found' : error.message;
 
-  return res
-    .status(status)
-    .render('pages/error', {
-      success: false,
-      title: 'error',
-      status: status,
-      msg: message
-    });
+//   if(error.name === 'ValidationError') {
+//     const errorKeys = Object.keys(error.errors);
+//     errorKeys.forEach(key => {
+//       console.log(error.errors[key].message)
+//     });
+//   } else 
 
-});
+//   return res
+//     .status(status)
+//     .json({
+//       success: false,
+//       name: error.name,
+//       status: status,
+//       message: message,
+//       errors: error.errors,
+//       stack: error
+//     });
+
+// });
+app.use(handleError);
 
 
 /**

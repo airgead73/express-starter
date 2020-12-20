@@ -5,8 +5,9 @@ const template_controller = require('../../controllers/api/templateController');
 
 router
   .route('/')
+  .get(template_controller.read)
   .post(template_controller.create)
-  .get(template_controller.read);
+  .delete(template_controller.drop);
 
 router
   .route('/:templateID')

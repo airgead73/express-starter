@@ -1,139 +1,62 @@
-const { ISDEV } = require('../config/env');
-
 const handleError = async function(err, req, res, next) {
 
-  const json = res.locals.res_json;
-  const html = res.locals.res_html;
+  let status = err.status || 500;
+  let message;
 
-  if(ISDEV) {
-    console.log('****************************');
-    console.error({
-      name: err.name,
-      status: err.status,
-      msg: err.message
+  // if db error, get error messages from mongoose error object
+  const getValidationMessages = function(err) {
+
+    const messages = [];
+    const errorKeys = Object.keys(err.errors);
+
+    errorKeys.forEach(key => {
+      messages.push(err.errors[key].message);
     });
-    console.log('****************************');
-  }  
 
-  if(html) {
-    switch(err.name) {
-      case 'NotFoundError':
-        return res
-          .status(404)
-          .json({
-            status: err.status,
-            msg: err.message
-          });
-        break;
-      case 'ReferenceError':
-        return res
-          .status(500)
-          .json({
-            status: err.status,
-            msg: err.message
-          });
-        break; 
-      case 'CastError':  
-        return res
-          .status(404) 
-          .json({
-            status: 404,
-            msg: err.message
-          });
-          break;
-      default:     
-        return res
-          .status(500) 
-          .json({
-            status: 500,
-            msg: err.message
-          }); 
-    } 
+    return messages;
+
   }
+  
 
-  if(json) {
-    jsonReply(err);
-  }
-
-  if(html) {
-    htmlReply(err);
-  }
-
-  function jsonReply(err) {
-    switch(err.name) {
-      case 'NotFoundError':
+  switch(err.name) {
+    case 'ValidationError':
+      return res
+        .status(status)
+        .json({
+          success: false,
+          name: err.name,
+          status: status,
+          messages: getValidationMessages(err),
+          stack: err
+        });
+      break;
+    case 'NotFoundError':
+      message = err.message || 'Resource not found'
         return res
-          .status(404)
+          .status(status)
           .json({
-            status: err.status,
-            msg: err.message
+            success: false,
+            name: err.name,
+            status: status,
+            messages: [message],
+            stack: err
           });
-        break;
-      case 'ReferenceError':
-        return res
-          .status(500)
-          .json({
-            status: err.status,
-            msg: err.message
-          });
-        break; 
-      case 'CastError':  
-        return res
-          .status(404) 
-          .json({
-            status: 404,
-            msg: err.message
-          });
-          break;
-      default:     
-        return res
-          .status(500) 
-          .json({
-            status: 500,
-            msg: err.message
-          }); 
-    } 
-  }
-
-  function htmlReply(err) {
-    switch(err.name) {
-      case 'NotFoundError':
-        return res
-          .status(404)
-          .json({
-            status: err.status,
-            msg: err.message
-          });
-        break;
-      case 'ReferenceError':
-        return res
-          .status(500)
-          .json({
-            status: err.status,
-            msg: err.message
-          });
-        break; 
-      case 'CastError':  
-        return res
-          .status(404) 
-          .json({
-            status: 404,
-            msg: err.message
-          });
-          break;
-      default:     
-        return res
-          .status(500) 
-          .json({
-            status: 500,
-            msg: err.message
-          }); 
-    } 
+        break;      
+    default: 
+      message = err.message || 'Resource not found'
+      return res
+        .status(status)
+        .json({
+          success: false,
+          name: err.name,
+          status: status,
+          messages: [message],
+          stack: err
+        });  
+      break;  
   }
 
 
-
- 
 
 }
 

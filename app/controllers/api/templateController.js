@@ -85,3 +85,20 @@ exports.delete = asyncHandler(async function(req, res, next) {
 
 });
 
+/**
+ * @route   DELETE /
+ * @desc    delete collection
+ * @access  private
+ */
+
+exports.drop = asyncHandler(async function(req, res, next) {
+
+  return res
+    .status(200)
+    .json({
+      success: true,
+      msg: 'DELETE: drop collection'
+  });
+
+});
+
