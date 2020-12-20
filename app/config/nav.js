@@ -1,8 +1,9 @@
 const links = [
-  {  text: 'projects' },
-  {  text: 'about' },
-  {  text: 'contact' },
-  {  text: 'profile' }
+  { text: 'projects' },
+  { text: 'about' },
+  { text: 'contact' },
+  { text: 'profile' },
+  { text: 'users' }
 ];
 
 const configureLinks = function(text) {

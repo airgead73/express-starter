@@ -120,6 +120,7 @@ app.use('/api/auth', require('./routes/api/authRoutes'));
 // client
 app.use('/', require('./routes/client/clientRoutes'));
 app.use('/projects', require('./routes/client/projectRoutes'));
+app.use('/users', require('./routes/client/userRoutes'));
 
 /**
  * @desc ERROR HANDLING
