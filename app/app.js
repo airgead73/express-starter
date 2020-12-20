@@ -1,3 +1,4 @@
+const checkResType = require('./middleware/checkResType');
 const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -74,6 +75,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
+app.use(checkResType);
 app.use(flash());
 app.use(methodOverride('_method'));
 app.use(session({
@@ -94,8 +96,8 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.user = req.user || null;
   res.locals.username = null;
-  console.log(req.originalUrl);
-  console.log(req.path);
+  console.log('json', res.locals.res_json);
+  console.log('html', res.locals.res_html);
   next();
 }); 
 
@@ -114,6 +116,7 @@ app.use('/api/templates', require('./routes/api/templateRoutes'));
 app.use('/api/users', require('./routes/api/userRoutes'));
 app.use('/api/auth', require('./routes/api/authRoutes'));
 
+
 // client
 app.use('/', require('./routes/client/clientRoutes'));
 app.use('/projects', require('./routes/client/projectRoutes'));
@@ -124,35 +127,9 @@ app.use('/projects', require('./routes/client/projectRoutes'));
 
 app.use(function(req, res, next) {
   next(createError(404, 'Page not found'))
-})
+});
 
-// app.use((error, req, res, next) => {
-
-//   let status = error.status || 500;
-//   let message = error.message || 'Resource not found'
-
-
-//   if(error.name === 'ValidationError') {
-//     const errorKeys = Object.keys(error.errors);
-//     errorKeys.forEach(key => {
-//       console.log(error.errors[key].message)
-//     });
-//   } else 
-
-//   return res
-//     .status(status)
-//     .json({
-//       success: false,
-//       name: error.name,
-//       status: status,
-//       message: message,
-//       errors: error.errors,
-//       stack: error
-//     });
-
-// });
 app.use(handleError);
-
 
 /**
  * @desc EXPORT

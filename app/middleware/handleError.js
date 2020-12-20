@@ -2,6 +2,7 @@ const handleError = async function(err, req, res, next) {
 
   let status = err.status || 500;
   let message;
+  let messages;;
 
   // if db error, get error messages from mongoose error object
   const getValidationMessages = function(err) {
@@ -15,45 +16,40 @@ const handleError = async function(err, req, res, next) {
 
     return messages;
 
-  }
-  
+  }  
 
   switch(err.name) {
     case 'ValidationError':
-      return res
-        .status(status)
-        .json({
-          success: false,
-          name: err.name,
-          status: status,
-          messages: getValidationMessages(err),
-          stack: err
-        });
+      messages = getValidationMessages(err);
       break;
     case 'NotFoundError':
       message = err.message || 'Resource not found'
-        return res
-          .status(status)
-          .json({
-            success: false,
-            name: err.name,
-            status: status,
-            messages: [message],
-            stack: err
-          });
-        break;      
+      messages = [message];
+      break;      
     default: 
       message = err.message || 'Resource not found'
-      return res
-        .status(status)
-        .json({
-          success: false,
-          name: err.name,
-          status: status,
-          messages: [message],
-          stack: err
-        });  
+      messages = [];
       break;  
+  }
+
+  if(res.locals.res_json) {
+    return res  
+      .status(status)
+      .json({
+        success: false,
+        name: err.name,
+        status: status,
+        messages: messages,
+        stack: Err
+      });      
+  } else {
+    return res
+      .status(status)
+      .render('pages/error', {
+        success: false,
+        status: status,
+        messages: messages
+      });
   }
 
 

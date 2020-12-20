@@ -1,5 +1,9 @@
 <section class="container">
   <h1 class="text-center">{{status}}</h1>
-  <p class="text-center">{{msg}}</p>  
+
+    {{#each messages}}
+    <p class="text-center"><code>{{path}}</code> {{this}}</p>
+    {{/each}}
+
 </section>
 
