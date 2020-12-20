@@ -106,6 +106,10 @@ if (ISDEV) {
  * @desc LOAD ROUTES
  */
 
+// api
+app.use('/api/projects', require('./routes/api/projectRoutes'))
+app.use('/api/templates', require('./routes/api/templateRoutes'))
+
 // client
 app.use('/', require('./routes/client/clientRoutes'));
 app.use('/projects', require('./routes/client/projectRoutes'));
