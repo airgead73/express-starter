@@ -1,10 +1,10 @@
 const asyncHandler = require('../../middleware/handleAsync');
-//const User = require('../../models/User');
+//const Project = require('../../models/project');
 const createError = require('http-errors');
 
 /**
  * @route   POST /
- * @desc    create user
+ * @desc    create project
  * @access  private
  */
 
@@ -14,14 +14,14 @@ exports.create = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'POST: create user' 
+      msg: 'POST: create project' 
     });
 
 });
 
  /**
  * @route   GET /
- * @desc    read all users
+ * @desc    read all projects
  * @access  private
  */
 
@@ -31,14 +31,14 @@ exports.read_all = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'GET: read users' 
+      msg: 'GET: read projects' 
     });  
 
 }); 
 
 /**
- * @route   GET /:userID
- * @desc    read one user
+ * @route   GET /:projectID
+ * @desc    read one project
  * @access  private
  */
 
@@ -48,14 +48,14 @@ exports.read_one = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'GET: read one user' 
+      msg: 'GET: read one project' 
     });  
 
 }); 
 
 /**
- * @route   PUT /:userID
- * @desc    update one user
+ * @route   PUT /:projectID
+ * @desc    update one project
  * @access  private
  */ 
 
@@ -65,14 +65,14 @@ exports.update_one = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'PUT: update one user' 
+      msg: 'PUT: update one project' 
     });  
 
 }); 
 
 /**
  * @route   DELETE /
- * @desc    delete one user
+ * @desc    delete one project
  * @access  private
  */ 
 
@@ -82,14 +82,14 @@ exports.delete_one = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'DELETE: delete user' 
+      msg: 'DELETE: delete project' 
     });  
 
 }); 
 
 /**
  * @route   PUT /
- * @desc    update many users
+ * @desc    update many projects
  * @access  private
  */ 
 
@@ -99,14 +99,14 @@ exports.update_all = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'PUT: update many users' 
+      msg: 'PUT: update many projects' 
     });  
 
 }); 
 
 /**
  * @route   DELETE /
- * @desc    drop user collection
+ * @desc    drop project collection
  * @access  private
  */
 
@@ -116,7 +116,7 @@ exports.delete_all= asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'DELETE: delete user collection' 
+      msg: 'DELETE: delete project collection' 
     });  
 
 }); 

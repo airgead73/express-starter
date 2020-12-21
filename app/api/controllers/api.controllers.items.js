@@ -1,10 +1,10 @@
 const asyncHandler = require('../../middleware/handleAsync');
-//const User = require('../../models/User');
+//const Item = require('../../models/item');
 const createError = require('http-errors');
 
 /**
  * @route   POST /
- * @desc    create user
+ * @desc    create item
  * @access  private
  */
 
@@ -14,14 +14,14 @@ exports.create = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'POST: create user' 
+      msg: 'POST: create item' 
     });
 
 });
 
  /**
  * @route   GET /
- * @desc    read all users
+ * @desc    read all items
  * @access  private
  */
 
@@ -31,14 +31,14 @@ exports.read_all = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'GET: read users' 
+      msg: 'GET: read items' 
     });  
 
 }); 
 
 /**
- * @route   GET /:userID
- * @desc    read one user
+ * @route   GET /:itemID
+ * @desc    read one item
  * @access  private
  */
 
@@ -48,14 +48,14 @@ exports.read_one = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'GET: read one user' 
+      msg: 'GET: read one item' 
     });  
 
 }); 
 
 /**
- * @route   PUT /:userID
- * @desc    update one user
+ * @route   PUT /:itemID
+ * @desc    update one item
  * @access  private
  */ 
 
@@ -65,14 +65,14 @@ exports.update_one = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'PUT: update one user' 
+      msg: 'PUT: update one item' 
     });  
 
 }); 
 
 /**
  * @route   DELETE /
- * @desc    delete one user
+ * @desc    delete one item
  * @access  private
  */ 
 
@@ -82,14 +82,14 @@ exports.delete_one = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'DELETE: delete user' 
+      msg: 'DELETE: delete item' 
     });  
 
 }); 
 
 /**
  * @route   PUT /
- * @desc    update many users
+ * @desc    update many items
  * @access  private
  */ 
 
@@ -99,14 +99,14 @@ exports.update_all = asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'PUT: update many users' 
+      msg: 'PUT: update many items' 
     });  
 
 }); 
 
 /**
  * @route   DELETE /
- * @desc    drop user collection
+ * @desc    drop item collection
  * @access  private
  */
 
@@ -116,7 +116,7 @@ exports.delete_all= asyncHandler(async function(req, res, next) {
     .status(200)
     .json({ 
       success: true, 
-      msg: 'DELETE: delete user collection' 
+      msg: 'DELETE: delete item collection' 
     });  
 
 }); 

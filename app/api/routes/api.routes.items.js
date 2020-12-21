@@ -1,18 +1,27 @@
 const { Router } = require('express');
 const itemsRouter = Router();
+const {
+  create,
+  read_all,
+  read_one,
+  update_one,
+  update_all,
+  delete_one,
+  delete_all
+} = require('../controllers/api.controllers.items');
 
 itemsRouter
   .route('/')
-  .get((req, res) => res.json({ success: true, msg: 'GET: get items' }))
-  .post((req, res) => res.json({ success: true, msg: 'POST: create a item' }))
-  .put((req, res) => res.json({ success: true, msg: 'PUT: update all items' }))
-  .delete((req, res) => res.json({ success: true, msg: 'DROP: delete all items' }));
+  .get(read_all)
+  .post(create)
+  .put(update_all)
+  .delete(delete_all);
 
 itemsRouter
   .route('/:itemID')
-  .get((req, res) => res.json({ success: true, msg: 'GET: get one item' }))
-  .put((req, res) => res.json({ success: true, msg: 'PUT: update one item' }))
-  .delete((req, res) => res.json({ success: true, msg: 'DELETE: delete one item' }));
+  .get(read_one)
+  .put(update_one)
+  .delete(delete_one);
 
 module.exports = {
   itemsRouter,

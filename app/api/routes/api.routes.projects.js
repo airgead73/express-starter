@@ -1,18 +1,27 @@
 const { Router } = require('express');
 const projectsRouter = Router();
+const {
+  create,
+  read_all,
+  read_one,
+  update_one,
+  update_all,
+  delete_one,
+  delete_all
+} = require('../controllers/api.controllers.projects');
 
 projectsRouter
   .route('/')
-  .get((req, res) => res.json({ success: true, msg: 'GET: get projects' }))
-  .post((req, res) => res.json({ success: true, msg: 'POST: create a project' }))
-  .put((req, res) => res.json({ success: true, msg: 'PUT: update all projects' }))
-  .delete((req, res) => res.json({ success: true, msg: 'DROP: delete all projects' }));
+  .get(read_all)
+  .post(create)
+  .put(update_all)
+  .delete(delete_all);
 
 projectsRouter
   .route('/:projectID')
-  .get((req, res) => res.json({ success: true, msg: 'GET: get one project' }))
-  .put((req, res) => res.json({ success: true, msg: 'PUT: update one project' }))
-  .delete((req, res) => res.json({ success: true, msg: 'DELETE: delete one project' }));
+  .get(read_one)
+  .put(update_one)
+  .delete(delete_one);
 
 module.exports = {
   projectsRouter,
