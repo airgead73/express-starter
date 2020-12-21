@@ -110,6 +110,8 @@ if (ISDEV) {
  * @desc LOAD ROUTES
  */
 
+const { apiRouter } = require('./api');
+app.use('/api', apiRouter);
 
 
 /**
