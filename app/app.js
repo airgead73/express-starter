@@ -110,17 +110,7 @@ if (ISDEV) {
  * @desc LOAD ROUTES
  */
 
-// api
-app.use('/api/projects', require('./routes/api/projectRoutes'));
-app.use('/api/templates', require('./routes/api/templateRoutes'));
-app.use('/api/users', require('./routes/api/userRoutes'));
-app.use('/api/auth', require('./routes/api/authRoutes'));
 
-
-// client
-app.use('/', require('./routes/client/clientRoutes'));
-app.use('/projects', require('./routes/client/projectRoutes'));
-app.use('/users', require('./routes/client/userRoutes'));
 
 /**
  * @desc ERROR HANDLING
