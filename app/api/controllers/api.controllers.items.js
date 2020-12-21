@@ -1,5 +1,5 @@
 const asyncHandler = require('../../middleware/handleAsync');
-//const Item = require('../../models/item');
+const Item = require('../../models/Item');
 const createError = require('http-errors');
 
 /**
@@ -10,11 +10,20 @@ const createError = require('http-errors');
 
 exports.create = asyncHandler(async function(req, res, next) {
 
+  const reqBody = {...req.body};
+
+  reqBody.project = req.params.projectID;
+
+  const item = new Item(reqBody);
+
+  await item.save();
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'POST: create item' 
+      msg: 'POST: create item',
+      item
     });
 
 });
@@ -27,14 +36,15 @@ exports.create = asyncHandler(async function(req, res, next) {
 
 exports.read_all = asyncHandler(async function(req, res, next) {
 
-  const projectID = req.params.projectID
+  const { success, count, data } = res.results;
 
   return res
     .status(200)
     .json({ 
-      success: true,
-      project: projectID || null, 
-      msg: 'GET: read items' 
+      success: success,
+      count: count,
+      message: count > 0 ? `GET: ${count} found`: 'No items found.',
+      items: data
     });  
 
 }); 
@@ -47,11 +57,16 @@ exports.read_all = asyncHandler(async function(req, res, next) {
 
 exports.read_one = asyncHandler(async function(req, res, next) {
 
+  const item = await Item.findById(req.params.itemID);
+
+  if(!item) return next(createError(404, 'Item not found.'));
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'GET: read one item' 
+      msg: 'GET: read one item',
+      item
     });  
 
 }); 
@@ -64,11 +79,32 @@ exports.read_one = asyncHandler(async function(req, res, next) {
 
 exports.update_one = asyncHandler(async function(req, res, next) {
 
+  // find item
+  let item = await Item.findById(req.params.itemID);
+
+  if(!item) return next(createError(404, 'Item not found.'));
+  
+
+  // build fields
+  const {
+    title,
+    desc
+  } = req.body;
+
+  const itemFields = {};
+
+  if(title) itemFields.title = title;
+  if(desc) itemFields.desc = desc;
+
+  // update item
+  item = await Item.findByIdAndUpdate(req.params.itemID, { $set: itemFields }, { new: true });
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'PUT: update one item' 
+      msg: 'PUT: item updated',
+      item
     });  
 
 }); 
@@ -81,12 +117,23 @@ exports.update_one = asyncHandler(async function(req, res, next) {
 
 exports.delete_one = asyncHandler(async function(req, res, next) {
 
+  // find item
+  let item = await Item.findById(req.params.itemID);
+
+  if(!item) {
+    return next(createError(404, 'Item not found.'));
+  }
+
+  // delete item
+  await item.remove();
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'DELETE: delete item' 
-    });  
+      msg: `DELETE: ${item.title} is deleted.`
+    });   
+
 
 }); 
 

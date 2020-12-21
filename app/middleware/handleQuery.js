@@ -4,6 +4,9 @@ const handleQuery = (model) => async (req, res, next) => {
 
   const reqQuery = {...req.query};
 
+  // add project to query params
+  if(req.params.projectID) reqQuery.project = req.params.projectID;
+
   const removeFields = ['select', 'sort']
 
   removeFields.forEach(param => delete reqQuery[param]);
