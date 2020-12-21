@@ -27,10 +27,13 @@ exports.create = asyncHandler(async function(req, res, next) {
 
 exports.read_all = asyncHandler(async function(req, res, next) {
 
+  const projectID = req.params.projectID
+
   return res
     .status(200)
     .json({ 
-      success: true, 
+      success: true,
+      project: projectID || null, 
       msg: 'GET: read items' 
     });  
 

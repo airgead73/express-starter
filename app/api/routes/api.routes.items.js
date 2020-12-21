@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const itemsRouter = Router();
+const itemsRouter = Router({ mergeParams: true });
 const {
   create,
   read_all,

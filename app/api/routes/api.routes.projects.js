@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const projectsRouter = Router();
+const { itemsRouter } = require('./api.routes.items');
 const {
   create,
   read_all,
@@ -9,6 +10,9 @@ const {
   delete_one,
   delete_all
 } = require('../controllers/api.controllers.projects');
+
+// nested routes
+projectsRouter.use('/:projectID/items', itemsRouter);
 
 projectsRouter
   .route('/')
