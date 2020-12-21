@@ -1,5 +1,5 @@
-const asyncHandler = require('../../middleware/handleAsync');
-const Resource = require('../../models/Resource');
+const asyncHandler = require('');
+const Resource = require('');
 const createError = require('http-errors');
 
 /**

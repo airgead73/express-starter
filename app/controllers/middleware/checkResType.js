@@ -1,4 +1,4 @@
-const { ISDEV } = require('../config/env');
+const { ISDEV } = require('../../config/env');
 
 const checkResType = function(req, res, next) {
   

@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const projectsRouter = Router();
-const { itemsRouter } = require('./api.routes.items');
-const { resourcesRouter } = require('./api.routes.resources');
-const Project = require('../../models/Project');
+const { itemsRouter } = require('');
+const { resourcesRouter } = require('');
+const Project = require('');
 
 // controllers
 const {
@@ -13,10 +13,10 @@ const {
   update_all,
   delete_one,
   delete_all
-} = require('../controllers/api.controllers.projects');
+} = require('');
 
 // middleware
-const handleQuery = require('../../middleware/handleQuery');
+const handleQuery = require('');
 
 // populate options
 populate = [{path: 'items', select: 'title'}]

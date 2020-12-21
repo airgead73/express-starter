@@ -1,4 +1,4 @@
-const asyncHandler = require('../../middleware/handleAsync');
+const asyncHandler = require('');
 //const User = require('../../models/User');
 const createError = require('http-errors');
 

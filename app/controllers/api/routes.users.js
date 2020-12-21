@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const usersRouter = Router();
-const User = require('../../models/User');
+const User = require('');
 
 // controller
 const {
@@ -11,11 +11,11 @@ const {
   update_all,
   delete_one,
   delete_all
-} = require('../api_controllers/api.controllers.users');
+} = require('');
 
 // middleware
-const handleQuery = require('../../middleware/handleQuery');
-const { validationRules, validate } = require('../../middleware/handleValidation');
+const handleQuery = require('');
+const { validationRules, validate } = require('');
 
 usersRouter
   .route('/')

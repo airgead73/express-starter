@@ -1,4 +1,4 @@
-const checkResType = require('./middleware/checkResType');
+const checkResType = require('./controllers/middleware/checkResType');
 const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -7,10 +7,11 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const flash = require('connect-flash');
 const Handlebars = require('handlebars');
-const handleError = require('./middleware/handleError');
+const handleError = require('./controllers/middleware/handleError');
 const helmet = require('helmet');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const hpp = require('hpp');
+const logRequests = require('./controllers/middleware/logRequest');
 const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize');
 const path = require('path');
@@ -77,6 +78,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(checkResType);
 app.use(flash());
+app.use(logRequests);
 app.use(methodOverride('_method'));
 app.use(session({
  secret: SESSION_SECRET,
@@ -110,7 +112,7 @@ if (ISDEV) {
  * @desc LOAD ROUTES
  */
 
-const { apiRouter } = require('./api');
+const { apiRouter } = require('./controllers/api');
 app.use('/api', apiRouter);
 
 
