@@ -1,5 +1,5 @@
 const asyncHandler = require('../../middleware/handleAsync');
-//const Project = require('../../models/project');
+const Project = require('../../models/Project');
 const createError = require('http-errors');
 
 /**
@@ -10,11 +10,16 @@ const createError = require('http-errors');
 
 exports.create = asyncHandler(async function(req, res, next) {
 
+  const project = new Project(req.body);
+
+  await project.save();
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'POST: create project' 
+      msg: 'POST: create project',
+      project
     });
 
 });
@@ -27,11 +32,15 @@ exports.create = asyncHandler(async function(req, res, next) {
 
 exports.read_all = asyncHandler(async function(req, res, next) {
 
+  const { success, count, data } = res.results;
+
   return res
     .status(200)
     .json({ 
-      success: true, 
-      msg: 'GET: read projects' 
+      success: success,
+      count: count,
+      message: count > 0 ? `GET: ${count} found`: 'No projects found.',
+      projects: data
     });  
 
 }); 
@@ -44,11 +53,16 @@ exports.read_all = asyncHandler(async function(req, res, next) {
 
 exports.read_one = asyncHandler(async function(req, res, next) {
 
+  const project = await Project.findById(req.params.projectID);
+
+  if(!project) return next(createError(404, 'Project not found.'));
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'GET: read one project' 
+      msg: 'GET: read one project',
+      project
     });  
 
 }); 
@@ -61,12 +75,36 @@ exports.read_one = asyncHandler(async function(req, res, next) {
 
 exports.update_one = asyncHandler(async function(req, res, next) {
 
+  // find project
+  let project = await Project.findById(req.params.projectID);
+
+  if(!project) {
+    return next(createError(404, 'project not found.'));
+  }
+
+  // build fields
+  const {
+    title,
+    code,
+    desc
+  } = req.body;
+
+  const projectFields = {};
+
+  if(title) projectFields.title = title;
+  if(code) projectFields.code = code;
+  if(desc) projectFields.desc = desc;
+
+  // update project
+  project = await Project.findByIdAndUpdate(req.params.projectID, { $set: projectFields }, { new: true });
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'PUT: update one project' 
-    });  
+      msg: 'PUT: project updated',
+      project
+    });   
 
 }); 
 
@@ -78,12 +116,22 @@ exports.update_one = asyncHandler(async function(req, res, next) {
 
 exports.delete_one = asyncHandler(async function(req, res, next) {
 
+  // find project
+  let project = await Project.findById(req.params.projectID);
+
+  if(!project) {
+    return next(createError(404, 'project not found.'));
+  }
+
+  // delete project
+  await project.remove();
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'DELETE: delete project' 
-    });  
+      msg: 'DELETE: project is deleted.' 
+    });   
 
 }); 
 
@@ -111,6 +159,8 @@ exports.update_all = asyncHandler(async function(req, res, next) {
  */
 
 exports.delete_all= asyncHandler(async function(req, res, next) {
+
+  Project.collection.drop();
 
   return res
     .status(200)

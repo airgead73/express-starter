@@ -40,7 +40,7 @@ const handleError = async function(err, req, res, next) {
         name: err.name,
         status: status,
         messages: messages,
-        stack: Err
+        stack: err
       });      
   } else {
     return res

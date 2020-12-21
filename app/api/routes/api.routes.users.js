@@ -1,5 +1,8 @@
 const { Router } = require('express');
 const usersRouter = Router();
+const User = require('../../models/User');
+
+// controller
 const {
   create,
   read_all,
@@ -10,10 +13,14 @@ const {
   delete_all
 } = require('../controllers/api.controllers.users');
 
+// middleware
+const handleQuery = require('../../middleware/handleQuery');
+const { validationRules, validate } = require('../../middleware/handleValidation');
+
 usersRouter
   .route('/')
-  .get(read_all)
-  .post(create)
+  .get(handleQuery(User), read_all)
+  .post(validationRules('createUser'), validate, create)
   .put(update_all)
   .delete(delete_all);
 

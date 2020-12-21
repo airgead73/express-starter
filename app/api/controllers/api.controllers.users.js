@@ -1,5 +1,5 @@
 const asyncHandler = require('../../middleware/handleAsync');
-//const User = require('../../models/User');
+const User = require('../../models/User');
 const createError = require('http-errors');
 
 /**
@@ -10,12 +10,34 @@ const createError = require('http-errors');
 
 exports.create = asyncHandler(async function(req, res, next) {
 
+  if(res.locals.validation_fail) {
+    return res
+      .status(404)
+      .json({
+        success: false,
+        messages: res.locals.error_arr
+      });
+  }
+
+  const user = new User(req.body);
+
+  await user.save();
+
+  // Create token
+  const token = user.getSignedJwtToken();
+
   return res
     .status(200)
-    .json({ 
-      success: true, 
-      msg: 'POST: create user' 
-    });
+    .json({
+      success: true,
+      msg: 'POST: create user',
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+      token
+
+  });
 
 });
 
@@ -27,11 +49,15 @@ exports.create = asyncHandler(async function(req, res, next) {
 
 exports.read_all = asyncHandler(async function(req, res, next) {
 
+  const { success, count, data } = res.results;
+
   return res
     .status(200)
     .json({ 
-      success: true, 
-      msg: 'GET: read users' 
+      success: success, 
+      count: count,
+      message: count > 0 ? `GET: ${count} found`: 'No users found.',
+      users: data
     });  
 
 }); 
@@ -44,11 +70,16 @@ exports.read_all = asyncHandler(async function(req, res, next) {
 
 exports.read_one = asyncHandler(async function(req, res, next) {
 
+  const user = await User.findById(req.params.userID);
+
+  if(!user) return next(createError(404, 'User not found.'));
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'GET: read one user' 
+      msg: 'GET: read one user' ,
+      user
     });  
 
 }); 
@@ -61,11 +92,33 @@ exports.read_one = asyncHandler(async function(req, res, next) {
 
 exports.update_one = asyncHandler(async function(req, res, next) {
 
+  // find user
+  let user = await User.findById(req.params.userID);
+
+  if(!user) {
+    return next(createError(404, 'User not found.'));
+  }
+
+  // build fields
+  const {
+    name,
+    email
+  } = req.body;
+
+  const userFields = {};
+
+  if(name) userFields.name = name;
+  if(email) userFields.email = email;
+
+  // update user
+  user = await User.findByIdAndUpdate(req.params.userID, { $set: userFields }, { new: true });
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'PUT: update one user' 
+      msg: 'PUT: user updated',
+      user
     });  
 
 }); 
@@ -78,11 +131,21 @@ exports.update_one = asyncHandler(async function(req, res, next) {
 
 exports.delete_one = asyncHandler(async function(req, res, next) {
 
+  // find user
+  let user = await User.findById(req.params.userID);
+
+  if(!user) {
+    return next(createError(404, 'User not found.'));
+  }
+
+  // delete user
+  await user.remove();
+
   return res
     .status(200)
     .json({ 
       success: true, 
-      msg: 'DELETE: delete user' 
+      msg: 'DELETE: user is deleted.' 
     });  
 
 }); 
@@ -111,6 +174,8 @@ exports.update_all = asyncHandler(async function(req, res, next) {
  */
 
 exports.delete_all= asyncHandler(async function(req, res, next) {
+
+  User.collection.drop();
 
   return res
     .status(200)
