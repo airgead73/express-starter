@@ -18,18 +18,17 @@ const ProjectSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-},
-{
+}, {
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
 });
 
+// Reverse populate with virtuals
 ProjectSchema.virtual('items', {
   ref: 'Item',
   localField: '_id',
   foreignField: 'project',
   justOne: false
 });
-
 
 module.exports = mongoose.model('Project', ProjectSchema);

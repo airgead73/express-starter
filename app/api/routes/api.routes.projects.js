@@ -17,12 +17,15 @@ const {
 // middleware
 const handleQuery = require('../../middleware/handleQuery');
 
+// populate options
+populate = [{path: 'items', select: 'title'}]
+
 // nested routes
 projectsRouter.use('/:projectID/items', itemsRouter);
 
 projectsRouter
   .route('/')
-  .get(handleQuery(Project), read_all)
+  .get(handleQuery(Project, populate), read_all)
   .post(create)
   .put(update_all)
   .delete(delete_all);

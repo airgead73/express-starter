@@ -57,7 +57,10 @@ exports.read_all = asyncHandler(async function(req, res, next) {
 
 exports.read_one = asyncHandler(async function(req, res, next) {
 
-  const item = await Item.findById(req.params.itemID);
+  const item = await Item.findById(req.params.itemID).populate({
+    path: 'project',
+    select: 'title'
+  });
 
   if(!item) return next(createError(404, 'Item not found.'));
 

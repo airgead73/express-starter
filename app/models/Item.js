@@ -13,10 +13,6 @@ const ItemSchema = new mongoose.Schema({
     type: String,
     maxlength: 500
   }
-},
-{
-  toJSON: { virtuals: true },
-  toObject: { virtuals: true }
 });
 
 module.exports = mongoose.model('Item', ItemSchema);
