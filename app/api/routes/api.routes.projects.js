@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const projectsRouter = Router();
 const { itemsRouter } = require('./api.routes.items');
+const { resourcesRouter } = require('./api.routes.resources');
 const Project = require('../../models/Project');
 
 // controllers
@@ -22,7 +23,9 @@ populate = [{path: 'items', select: 'title'}]
 
 // nested routes
 projectsRouter.use('/:projectID/items', itemsRouter);
+projectsRouter.use('/:projectID/resources', resourcesRouter);
 
+// routes
 projectsRouter
   .route('/')
   .get(handleQuery(Project, populate), read_all)

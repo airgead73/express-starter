@@ -165,6 +165,8 @@ exports.update_all = asyncHandler(async function(req, res, next) {
 
 exports.delete_all= asyncHandler(async function(req, res, next) {
 
+  Resource.collection.drop();
+
   return res
     .status(200)
     .json({ 

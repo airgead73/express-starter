@@ -24,7 +24,7 @@ populate = [{path: 'project', select: 'title'}]
 
 resourcesRouter
   .route('/')
-  .get(handleQuery(Item, populate), read_all)
+  .get(handleQuery(Resource, populate), read_all)
   .post(create)
   .put(update_all)
   .delete(delete_all);
