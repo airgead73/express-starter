@@ -57,7 +57,7 @@ const {
   checkCurrent
 } = require('./utils/hbs');
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('_views', path.join(__dirname, '_views'));
 app.set('view engine', 'hbs');
 app.engine('hbs', exphbs({
   handlebars: allowInsecurePrototypeAccess(Handlebars),
