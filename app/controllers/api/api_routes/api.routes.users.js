@@ -11,7 +11,7 @@ const {
   update_all,
   delete_one,
   delete_all
-} = require('../controllers/api.controllers.users');
+} = require('../api_controllers/api.controllers.users');
 
 // middleware
 const handleQuery = require('../../middleware/handleQuery');
