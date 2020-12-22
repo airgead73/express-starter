@@ -16,7 +16,11 @@
   {{{body}}}
   </main>
 
-  {{> _footer}}  
+  {{#if user}}
+
+  {{> _footer}} 
+
+  {{/if}} 
   
   {{> _scripts}}
 </body>

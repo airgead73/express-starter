@@ -34,6 +34,8 @@ exports.read_all = asyncHandler(async function(req, res, next) {
 
   const { success, count, data } = res.results;
 
+  console.log(data)
+
   return res
     .status(200)
     .json({ 

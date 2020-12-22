@@ -1,24 +1,24 @@
-<section class="container">
-  <h1 class="text-center">{{title}}</h1>
+<section class="container--form">
+    <form class="card border-dark mb-3" id="form_login">  
+      <header class="card-header bg-transparent border-dark">
+        <legend>login</legend>
+      </header>
+      <main class="card-body text-dark">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="text" class="form-control" name="email" id="email">
+          <div class="email error"></div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" id="password">
+          <div class="password error"></div>
+        </div>
+      </main>
+      <footer class="card-footer bg-transparent border-dark">
+        <button type="submit" class="btn btn-dark">log in</button>
+      </footer>
+    </form>
 </section>
 
-<div class="message"></div>
-
-<div class="row">
-  <div class="col-md-2 offset-md-5">
-    <form id="form_login">    
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" class="form-control" name="email" id="email">
-        <div class="email error"></div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" name="password" id="password">
-        <div class="password error"></div>
-      </div>
-      <button type="submit" class="btn btn-primary">log in</button>
-    </form>
-  </div>
-</div>
-
+ 

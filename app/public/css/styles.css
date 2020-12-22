@@ -26424,3 +26424,14 @@ readers do not read off random characters that represent icons */
 main > .container {
   padding: 60px 15px 0;
 }
+
+#form_login {
+  width: 18rem;
+}
+
+.container--form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}

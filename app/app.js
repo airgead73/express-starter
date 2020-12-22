@@ -11,7 +11,7 @@ const handleError = require('./_controllers/middleware/handleError');
 const helmet = require('helmet');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const hpp = require('hpp');
-const logRequests = require('./_controllers/middleware/logRequest');
+
 const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize');
 const path = require('path');
@@ -70,7 +70,7 @@ app.engine('hbs', exphbs({
 }));
 
 /** 
- * @desc EXPRESS MIDDLEWARE
+ * @desc MIDDLEWARE
  */
 
 app.use(express.json());
@@ -79,7 +79,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(checkResType);
 app.use(flash());
-app.use(logRequests);
 app.use(methodOverride('_method'));
 app.use(session({
  secret: SESSION_SECRET,
@@ -89,6 +88,17 @@ app.use(session({
    checkPeriod: SESSION_EXP
  })
 }));
+
+/** 
+ * @desc DEV MIDDLEWARE
+ */
+
+if(ISDEV) {
+  const logger = require('morgan');
+  const logRequests = require('./_controllers/middleware/logRequest');
+  app.use(logRequests);  
+  app.use(logger('dev'));  
+}
 
 /** 
  * @desc GLOBAL VARIABLES
@@ -103,8 +113,7 @@ app.use(function (req, res, next) {
 }); 
 
 if (ISDEV) {
-  const logger = require('morgan');
-  app.use(logger('dev'));
+
 }
 
 /**

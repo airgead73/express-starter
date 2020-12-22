@@ -19,7 +19,7 @@ const {
 const handleQuery = require('../middleware/handleQuery');
 
 // populate options
-populate = [{path: 'items', select: 'title'}]
+const populate = [{path: 'items', select: 'title'}]
 
 // nested routes
 projectsRouter.use('/:projectID/items', itemsRouter);
