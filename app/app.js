@@ -112,10 +112,15 @@ if (ISDEV) {
  * @desc LOAD ROUTES
  */
 
+const { authRouter } = require('./_controllers/auth'); 
+const { clientRouter } = require('./_controllers/client');
 const { apiRouter } = require('./_controllers/api');
-const { authRouter } = require('./_controllers/auth');
-app.use('/api', apiRouter);
+
 app.use(authRouter);
+app.use('/', clientRouter);
+app.use('/api', apiRouter);
+
+
 
 /**
  * @desc ERROR HANDLING
