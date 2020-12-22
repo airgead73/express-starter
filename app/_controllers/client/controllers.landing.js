@@ -1,5 +1,6 @@
 const asyncHandler = require('../middleware/handleAsync');
 const createError = require('http-errors');
+const { configureLinks } = require('../../config/nav')
 
 /**
  * @route   GET /
@@ -9,7 +10,13 @@ const createError = require('http-errors');
 
 exports.landing = asyncHandler(async function(req, res, next) {
 
-  res.json({ msg: 'GET: landing page'})
+  return res
+    .status(200)
+    .render('pages/index', {
+      success: true,
+      title: 'exress starter',
+      links: configureLinks('landing')
+    });
 
 });
 
@@ -21,7 +28,13 @@ exports.landing = asyncHandler(async function(req, res, next) {
 
 exports.about = asyncHandler(async function(req, res, next) {
 
-  res.json({ msg: 'GET: landing page'})
+  return res
+    .status(200)
+    .render('pages/about', {
+      success: true,
+      title: 'about',
+      links: configureLinks('about')
+    });
 
 });
 
@@ -33,7 +46,13 @@ exports.about = asyncHandler(async function(req, res, next) {
 
 exports.contact = asyncHandler(async function(req, res, next) {
 
-  res.json({ msg: 'GET: landing page'})
+  return res
+    .status(200)
+    .render('pages/contact', {
+      success: true,
+      title: 'contact',
+      links: configureLinks('contact')
+    });
 
 });
 

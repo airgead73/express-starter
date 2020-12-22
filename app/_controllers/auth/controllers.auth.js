@@ -45,20 +45,18 @@ exports.get_login = asyncHandler(async function(req, res, next) {
 
 });
 
+exports.get_logout = asyncHandler(async function(req, res, next) {
+
+  res.cookie('jwt', '', { maxAge: 1});
+  res.redirect('/login');
+
+});
+
 exports.post_signup = asyncHandler(async function(req, res, next) {
 
   const { name, email, password } = req.body;
 
   const user = await User.create({ name, email, password});
-
-  // const token = createToken(user._id);
-  // res.cookie('jwt', token, {
-  //   httpOnly: true,
-  //   maxAge: maxAge * 1000,
-  //   secure: ISDEV ? false : true
-  // });
-
-  // console.log(user);
 
   return res
     .status(201)

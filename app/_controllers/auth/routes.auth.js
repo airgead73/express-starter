@@ -4,7 +4,8 @@ const {
   get_signup,
   post_signup,
   get_login,
-  post_login
+  post_login,
+  get_logout
 } = require('./controllers.auth');
 
 accessRouter
@@ -15,7 +16,11 @@ accessRouter
 accessRouter
   .route('/login')
   .get(get_login)
-  .post(post_login);  
+  .post(post_login); 
+  
+accessRouter
+  .route('/logout')
+  .get(get_logout);   
 
   module.exports = {
     accessRouter,

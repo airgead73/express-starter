@@ -37,7 +37,7 @@ if(login) {
       if(data) {
         console.log(data);
         login.reset();
-        //location.assign('/');
+        location.assign('/');
       }
 
     } catch(err) {
