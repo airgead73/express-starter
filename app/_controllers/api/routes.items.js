@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const itemsRouter = Router({ mergeParams: true });
-const Item = require('');
+const Item = require('../../_models/Item');
 
 // controller
 const {
@@ -11,11 +11,11 @@ const {
   update_all,
   delete_one,
   delete_all
-} = require('');
+} = require('./controllers.items');
 
 // middleware
-const handleQuery = require('');
-const { validationRules, validate } = require('');
+const handleQuery = require('../middleware/handleQuery');
+const { validationRules, validate } = require('../middleware/handleValidation');
 
 // populate options
 populate = [{path: 'project', select: 'title'}]

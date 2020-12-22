@@ -8,7 +8,7 @@ const {
   update_all,
   delete_one,
   delete_all
-} = require('');
+} = require('./controllers.templates');
 
 templatesRouter
   .route('/')
