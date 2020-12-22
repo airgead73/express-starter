@@ -98,8 +98,8 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.user = req.user || null;
   res.locals.username = null;
-  console.log('json', res.locals.res_json);
-  console.log('html', res.locals.res_html);
+  // console.log('json', res.locals.res_json);
+  // console.log('html', res.locals.res_html);
   next();
 }); 
 
@@ -116,7 +116,6 @@ const { apiRouter } = require('./_controllers/api');
 const { authRouter } = require('./_controllers/auth');
 app.use('/api', apiRouter);
 app.use(authRouter);
-
 
 /**
  * @desc ERROR HANDLING
