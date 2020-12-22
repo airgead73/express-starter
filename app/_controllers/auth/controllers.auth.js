@@ -24,6 +24,9 @@ exports.get_signup = asyncHandler(async function(req, res, next) {
     .render('pages/signup', {
       success: true,
       title: 'signup',
+      scripts: {
+        signup: true
+      }
     });
 
 });
@@ -35,6 +38,9 @@ exports.get_login = asyncHandler(async function(req, res, next) {
     .render('pages/login', {
       success: true,
       title: 'login',
+      scripts: {
+        login: true
+      }
     });
 
 });
@@ -45,14 +51,14 @@ exports.post_signup = asyncHandler(async function(req, res, next) {
 
   const user = await User.create({ name, email, password});
 
-  const token = createToken(user._id);
-  res.cookie('jwt', token, {
-    httpOnly: true,
-    maxAge: maxAge * 1000,
-    secure: ISDEV ? false : true
-  });
+  // const token = createToken(user._id);
+  // res.cookie('jwt', token, {
+  //   httpOnly: true,
+  //   maxAge: maxAge * 1000,
+  //   secure: ISDEV ? false : true
+  // });
 
-  console.log(user);
+  // console.log(user);
 
   return res
     .status(201)
@@ -67,14 +73,15 @@ exports.post_login = asyncHandler(async function(req, res, next) {
 
   const { email, password } = req.body;
 
-  const user = await User.login(email, password);
+  const user = await User.login({email, password}, res);
 
-  
+  const token = createToken(user._id);
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    maxAge: maxAge * 1000,
+    secure: ISDEV ? false : true
+  });
 
-  return res
-    .status(200)
-    .json({ email, password });
-
-
+  return res.status(200).json({ user: user._id });  
 
 });

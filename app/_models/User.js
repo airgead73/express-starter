@@ -53,23 +53,30 @@ UserSchema.pre('save', async function(next) {
 
 });
 
-UserSchema.statics.login = async function(email, password) {
+UserSchema.statics.login = async function(credentials, res) {
 
-  // const user = await this.findOne({ email });
+  const user = await this.findOne({ email: credentials.email }).select('password');
 
-  // if(!user) {
-  //   console.log('no user')
-  //   throw Error('no such user')
-  // }
+  if(!user) {
+    return res
+      .status(401)
+      .json({
+        errors: { msg: 'Incorrect username/combination [email]'}
+      });
 
-  // const auth = await bcrypt.compare(password, user.password);
+   }
 
-  // if(!auth) {
-  //   console.log('wrong password');
-  //   throw Error('incorrect password')
-  // }
+   const auth = await bcrypt.compare(credentials.password, user.password);
 
-  // return user;
+   if(!auth) {
+    return res
+      .status(401)
+      .json({
+        errors: { msg: 'Incorrect username/combination [pwd]'}
+      });
+   }
+
+   return user;
 
 }
 
