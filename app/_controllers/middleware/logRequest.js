@@ -7,6 +7,8 @@ const logRequests = function(req, res, next) {
   console.log("method: ", req.method);
   console.log('*** end log ***'); 
 
+  next();
+
 };
 
 module.exports = logRequests;
