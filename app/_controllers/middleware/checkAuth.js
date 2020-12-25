@@ -1,7 +1,6 @@
-const asyncHandler = require('./handleAsync');
 const jwt = require('jsonwebtoken');
 const User = require('../../_models/User');
-const { ISDEV, JWT_SECRET } = require('../../config/env');
+const { JWT_SECRET } = require('../../config/env');
 
 const requireAuth = (req, res, next) => {
 
@@ -21,7 +20,6 @@ const requireAuth = (req, res, next) => {
         console.log(err.message);
         return res.redirect('/login');
       } else {
-        console.log(decodedToken);
         return next();
       }
 
@@ -48,7 +46,6 @@ const checkUser = (req, res, next) => {
         res.locals.user = null;
         return next();
       } else {
-        console.log(decodedToken);
         let user = await User.findById(decodedToken.id);
         res.locals.user = user;
         return next();
