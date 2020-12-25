@@ -26,6 +26,24 @@ exports.projects_get = asyncHandler(async function(req, res, next) {
 });
 
  /**
+ * @route   GET /add
+ * @desc    view project add
+ * @access  private
+ */
+
+exports.projects_add = asyncHandler(async function(req, res, next) {
+
+  return res
+    .status(200)
+    .render('pages/projects/add', {
+      success: true,
+      title: 'add project',
+      links: configureLinks('projects')
+    });
+
+});
+
+ /**
  * @route   GET /:projectID
  * @desc    read all projects
  * @access  private
