@@ -12,6 +12,10 @@ main > .container {
   width: 18rem;
 }
 
+#form_message {
+  display: none;
+}
+
 .container--form {
   display: flex;
   align-items: center;

@@ -1,18 +1,15 @@
 console.log('login script uploaded.')
 const login = document.getElementById('form_login');
-const nameError = document.querySelector('.name.error');
-const emailError = document.querySelector('.email.error');
-const passwordError = document.querySelector('.password.error');
-const success = document.querySelector('.success');
+const message = document.getElementById('form_message');
 
 if(login) {
   login.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // reset errors
-    emailError.textContent = '';
-    passwordError.textContent = '';
-  
+    // reset message
+    message.style.display = null;
+    message.textContent = '';
+      
     // get values
     const email = login.email.value;
     const password = login.password.value;
@@ -26,17 +23,19 @@ if(login) {
         headers: { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
-
         }
-
       });
+
       const data = await res.json();
-      if(data.errors) {
-        message.textContent = data.errors.msg || '';        
+
+      const { success, user, errors } = data;
+
+      if(!success) {
+        message.textContent = errors.msg; 
+        message.style.display = "block";      
       }
-      if(data) {
-        console.log(data);
-        login.reset();
+
+      if(success) {
         location.assign('/');
       }
 

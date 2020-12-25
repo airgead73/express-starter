@@ -38,8 +38,8 @@ exports.projects_detail = asyncHandler(async function(req, res, next) {
   return res
     .status(200)
     .render('pages/projects/detail', {
-      success: success,
-      title: 'projects',
+      success: true,
+      title: `${project.code}`,
       links: configureLinks('projects'),
       project
 

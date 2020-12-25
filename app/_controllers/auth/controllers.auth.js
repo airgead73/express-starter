@@ -80,6 +80,11 @@ exports.post_login = asyncHandler(async function(req, res, next) {
     secure: ISDEV ? false : true
   });
 
-  return res.status(200).json({ user: user._id });  
+  return res
+    .status(200)
+    .json({
+      success: true, 
+      user: user._id 
+    });  
 
 });

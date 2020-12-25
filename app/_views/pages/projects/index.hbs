@@ -1,25 +1,25 @@
 <section class="container">
-  <h1 class="text-center">{{title}}</h1>
-
   <div class="row">
-    <div class="col-md-12">
-      <ul>
-        {{#each projects}}
-        <li>{{this.title}} <small>{{this.code}}</small>
-        {{#if this.items}}
-          <ul>
-          {{#each this.items}}
-            <li>{{this.title}}</li>
-          {{/each}}
-          </ul>
-          
-
-
-        {{/if}}
-        </li>
-        {{/each}}
-      </ul>
+    <div class="col-md-4 bg-secondary d-flex align-items-center justify-content-center">
+      <h1 class="text-center text-white">
+        {{title}}
+        <a href="/projects/add" class="btn btn-primary" title="add project">+</a>
+      </h1>
+      
     </div>
-  </div>
-  
+    <div class="col-md-8">
+      {{#each projects}}
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{this.code}}</h5>
+            <p class="card-text">{{this.title}}</p>
+            <a href="/projects/{{this._id}}" class="btn btn-secondary">go to project</a>
+          </div>
+        </div>      
+
+      {{/each}}
+
+    </div>
+  </div>  
 </section>
