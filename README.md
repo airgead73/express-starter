@@ -1,6 +1,6 @@
 # Express-Starter
 
-## v2 modules for client scripts
+## v3 refactor error responses
 
 ### install
 
