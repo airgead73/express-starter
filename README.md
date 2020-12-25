@@ -1,5 +1,7 @@
 # Express-Starter
 
+## v2 modules for client scripts
+
 ### install
 
 npm i @handlebars/allow-prototype-access connect-flash cookie-parser cors express express-handlebars express-mongo-sanitize express-rate-limit express-session express-validator handlebars helmet hpp http-errors memorystore method-override moment mongoose xss-clean
