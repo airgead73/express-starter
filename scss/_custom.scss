@@ -12,7 +12,7 @@ main > .container {
   width: 18rem;
 }
 
-#form_message {
+[data-message='form_message'] {
   display: none;
 }
 

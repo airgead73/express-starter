@@ -63,7 +63,7 @@ UserSchema.statics.login = async function(credentials, res) {
       .json({
         success: false,
         errors: { 
-          msg: 'Incorrect username/combination [email]'
+          msg: 'Incorrect email/password combination'
         }
       });
 
@@ -77,7 +77,7 @@ UserSchema.statics.login = async function(credentials, res) {
       .json({
         success: false,
         errors: { 
-          msg: 'Incorrect username/combination [pwd]'
+          msg: 'Incorrect email/password combination'
         }
       });
    }

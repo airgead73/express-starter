@@ -1,57 +1,49 @@
-console.log('login script uploaded.')
-const login = document.getElementById('form_login');
-const message = document.getElementById('form_message');
+export function login(form) {
 
-if(login) {
-  login.addEventListener('submit', async (e) => {
+  const message = form.querySelector('[data-message="form_message"]');
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // reset message
+    // reset form
     message.style.display = null;
-    message.textContent = '';
-      
-    // get values
-    const email = login.email.value;
-    const password = login.password.value;
 
-  
+    // get values
+    const email = form.email.value;
+    const password = form.password.value;
+
     try {
 
       const res = await fetch('/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
+
       });
 
       const data = await res.json();
-
-      const { success, user, errors } = data;
+      const { success, errors } = data;
 
       if(!success) {
-        message.textContent = errors.msg; 
-        message.style.display = "block";      
+        message.textContent = errors.msg || '';
+        message.style.display = 'block';
       }
 
       if(success) {
-        location.assign('/');
+        form.reset();
+        location.assign('/')
       }
 
     } catch(err) {
-      console.log(err)
+
+      console.error(err);
+
     }
-  
-  
-  
+
+    
   });
 
 }
-
-
-
-
-
-
-

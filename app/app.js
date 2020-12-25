@@ -1,4 +1,3 @@
-const checkResType = require('./_controllers/middleware/checkResType');
 const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -77,7 +76,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
-app.use(checkResType);
 app.use(flash());
 app.use(methodOverride('_method'));
 app.use(session({
