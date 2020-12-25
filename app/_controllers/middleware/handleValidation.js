@@ -41,7 +41,8 @@ const validate = (req, res, next) => {
     return next();
   }
   const extractedErrors = [];
-  errors.array().map(err => extractedErrors.push(err.msg));
+  console.log(errors);
+  errors.array().map(err => extractedErrors.push({ field: err.param, message: err.msg }));
   res.locals.error_arr = extractedErrors;
   res.locals.validation_fail = true;
   return next();

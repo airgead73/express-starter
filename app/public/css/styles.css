@@ -26429,7 +26429,7 @@ main > .container {
   width: 18rem;
 }
 
-[data-message="form_message"] {
+[data-message='form_message'] {
   display: none;
 }
 
