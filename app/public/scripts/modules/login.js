@@ -1,12 +1,14 @@
+import { displayFormMessage } from './handle_messages.js';
+
 export function login(form) {
 
-  const message = form.querySelector('[data-message="form_message"]');
+  const messageContainer = form.querySelector('[data-message="form_message"]');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     // reset form
-    message.style.display = null;
+    messageContainer.style.display = null;
 
     // get values
     const email = form.email.value;
@@ -25,11 +27,10 @@ export function login(form) {
       });
 
       const data = await res.json();
-      const { success, errors } = data;
+      const { success, messages } = data;
 
       if(!success) {
-        message.textContent = errors.msg || '';
-        message.style.display = 'block';
+        displayFormMessage(messageContainer, messages, success);
       }
 
       if(success) {

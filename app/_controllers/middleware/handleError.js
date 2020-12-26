@@ -1,131 +1,110 @@
-const handleError = async function(err, req, res, next) {
+const { ISDEV } = require('../../config/env');
 
-  console.log(err)
+const errorValidation = (_err, _req, _res, _resWithJson) => {
+  if(ISDEV) console.log('validation error');
+  let errors = []
+  Object.values(_err.errors).forEach(({ properties }) => {
+    let error = {}
+    error[properties.path] = properties.message;
+    errors.push(error);
+  });
 
-  // Validation Error
-
-  if(err.name === 'ValidationError') {
-    let errors = {}
-    Object.values(err.errors).forEach(({ properties }) => {
-      errors[properties.path] = properties.message
-    });
-
-    return res  
-      .status(err.status || 500)
-      .json({
-        success: false,
-        name: err.name,
-        status: err.status || 500,
-        errors: errors        
-      }); 
-
-  }
-
-  // Duplicate error code
-
-  if(err.code === 11000) {
-    return res  
+  return _res  
     .status(err.status || 500)
     .json({
       success: false,
-      name: err.name,
-      status: err.status || 500,
-      errors: { email: 'Email is already in use.'}       
-    });    
-  }
+      name: _err.name,
+      status: _err.status || 500,
+      messages: errors        
+    });   
+}
 
-  // Not found Error
-
-  if(err.name === 'NotFoundError') {
-    return res  
-      .status(err.status || 500)
-      .json({
-        success: false,
-        name: err.name,
-        status: err.status || 500,
-        errors: err       
-      });     
-  }
-
-  // System Error
-
-  if(err.name === 'Error') {
-    return res  
-      .status(err.status || 500)
-      .json({
-        success: false,
-        name: err.name,
-        status: err.status || 500,
-        errors: { message: err.message }       
-      });     
-  }  
-
-  // Any other error
-
-  return res  
-  .status(err.status || 500)
+const errorDuplicate = (_err, _req, _res, _resWithJson) => {
+  if(ISDEV) console.log('duplicate error');
+  return _res  
+  .status(_err.status || 500)
   .json({
     success: false,
-    name: err.name,
-    status: err.status || 500,
-    errors: err        
+    name: _err.name,
+    status: _err.status || 500,
+    messages: [
+      { email: 'Email is already in use.'}
+    ]       
+  });   
+}
+
+const errorNotFound = (_err, _req, _res, _resWithJson) => {
+  if(ISDEV) console.log('not found error');
+
+  if(_resWithJson) {
+    return _res  
+      .status(_err.status || 500)
+      .json({
+        success: false,
+        name: _err.name,
+        status: _err.status || 500,
+        messages: [{ resource: _err }]      
+      });    
+  } else {
+    return _res
+      .status(_err.status || 500)
+      .render('pages/error', {
+        success: false,
+        status: _err.status || 500,
+        path: _req.path
+      });
+  }
+  
+}
+
+const errorSystem = (_err, _req, _res, _resWithJson) => {
+  if(ISDEV) console.log('system error');
+  return _res  
+  .status(_err.status || 500)
+  .json({
+    success: false,
+    name: _err.name,
+    status: _err.status || 500,
+    messages: [{ system: err.message } ]      
+  });      
+}
+
+const errorGeneral = (_err, _req, _res, _resWithJson) => {
+  if(ISDEV) console.log('general error');
+  return _res  
+  .status(_err.status || 500)
+  .json({
+    success: false,
+    name: _err.name,
+    status: _err.status || 500,
+    messages: [{ resource: err }]        
   }); 
+}
 
+const handleError = async function(err, req, res, next) {
 
+  const resWithJson = req.headers.accept === 'application/json' ? true : false;
+  const name = err.name;
+  const code = err.code;
 
-  // let status = err.status || 500;
-  // let message;
-  // let messages;;
-
-  // // if db error, get error messages from mongoose error object
-  // const getValidationMessages = function(err) {
-
-  //   const messages = [];
-  //   const errorKeys = Object.keys(err.errors);
-
-  //   errorKeys.forEach(key => {
-  //     messages.push(err.errors[key].message);
-  //   });
-
-  //   return messages;
-
-  // }  
-
-  // switch(err.name) {
-  //   // case 'ValidationError':
-  //   //   messages = getValidationMessages(err);
-  //   //   break;
-  //   case 'NotFoundError':
-  //     message = err.message || 'Resource not found'
-  //     messages = [message];
-  //     break;      
-  //   default: 
-  //     message = err.message || 'Resource not found'
-  //     messages = [];
-  //     break;  
-  // }
-
-  // if(res.locals.res_json) {
-  //   return res  
-  //     .status(status)
-  //     .json({
-  //       success: false,
-  //       name: err.name,
-  //       status: status,
-  //       messages: messages,
-  //       stack: err
-  //     });      
-  // } else {
-  //   return res
-  //     .status(status)
-  //     .render('pages/error', {
-  //       success: false,
-  //       status: status,
-  //       messages: messages
-  //     });
-  // }
-
-
+  if(name === 'ValidationError') {
+    errorValidation(err, req, res, resWithJson);
+  } else if(name === 'NotFoundError') {
+    errorNotFound(err, req, res, resWithJson);
+  } else if(name === 'Error') {
+    errorSystem(err, req, res, resWithJson);
+  } else if(code === 11000) {
+    errorDuplicate(err, req, res, resWithJson);
+  } else {
+    return res  
+      .status(err.status || 500)
+      .json({
+        success: false,
+        name: err.name,
+        status: err.status || 500,
+        messages: [{ resource: err }]        
+      }); 
+  }
 
 }
 
