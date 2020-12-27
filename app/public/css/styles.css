@@ -26425,6 +26425,10 @@ main > .container {
   padding: 60px 15px 0;
 }
 
+form {
+  height: 100%;
+}
+
 #form_login {
   width: 18rem;
 }
