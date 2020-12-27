@@ -80,7 +80,6 @@ exports.projects_update = asyncHandler(async function(req, res, next) {
     .render('pages/projects/update', {
       success: true,
       title: `update ${project.code}`,
-      links: configureLinks('projects'),
       project
     });
 
