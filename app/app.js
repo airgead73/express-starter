@@ -16,7 +16,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 const { RATE_LIMIT } = require('./config/env');
-const { requireAuth, checkUser } = require('./_controllers/middleware/checkAuth');
+const { requireAuth } = require('./_controllers/middleware/checkAuth');
 const session = require('express-session');
 const { SESSION_EXP, SESSION_SECRET, ISDEV } = require('./config/env');
 const SessionMemory = require('memorystore')(session);
@@ -112,16 +112,11 @@ app.use(function (req, res, next) {
   next();
 }); 
 
-if (ISDEV) {
-
-}
-
 /**
  * @desc  AUTHENTICATION
  */
 
-app.use(requireAuth);
-app.get('*', checkUser);
+//app.use(requireAuth);
 
 /**
  * @desc LOAD ROUTES

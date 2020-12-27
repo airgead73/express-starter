@@ -30,6 +30,7 @@ export function login(form) {
       const { success, messages } = data;
 
       if(!success) {
+        console.log(data)
         displayFormMessage(messageContainer, messages, success);
       }
 

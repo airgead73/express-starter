@@ -48,7 +48,7 @@ const errorNotFound = (_err, _req, _res, _resWithJson) => {
   } else {
     return _res
       .status(_err.status || 500)
-      .render('pages/error', {
+      .render('pages/error/error_404', {
         success: false,
         status: _err.status || 500,
         path: _req.path
@@ -82,6 +82,8 @@ const errorGeneral = (_err, _req, _res, _resWithJson) => {
 }
 
 const handleError = async function(err, req, res, next) {
+
+  console.log(err);
 
   const resWithJson = req.headers.accept === 'application/json' ? true : false;
   const name = err.name;
