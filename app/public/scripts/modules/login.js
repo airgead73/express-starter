@@ -29,12 +29,15 @@ export function login(form) {
       const data = await res.json();
       const { success, messages } = data;
 
-      if(!success) {
-        console.log(data)
-        displayFormMessage(messageContainer, messages, success);
-      }
+      console.log(data);
+
+      // if(!success) {
+      //   console.log(data)
+      //   displayFormMessage(messageContainer, messages, success);
+      // }
 
       if(success) {
+        console.log('success')
         form.reset();
         location.assign('/')
       }

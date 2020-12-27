@@ -78,7 +78,7 @@ exports.post_login = asyncHandler(async function(req, res, next) {
       .status(200)
       .cookie('jwt', token, cookieOptions)
       .json({
-        user: user._id
+        success: true
       });
 
   } catch(err) {
