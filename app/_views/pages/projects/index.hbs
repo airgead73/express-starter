@@ -15,7 +15,8 @@
             <h5 class="card-title">{{this.code}}</h5>
             <p class="card-text">{{this.title}}</p>
             <a href="/projects/{{this._id}}" class="btn btn-secondary">go to project</a>
-            <button class="btn btn-secondary" data-delete="projects" data-target="{{this._id}}">&times;</button>
+            <button class="btn btn-secondary" data-delete="projects" data-target="{{this._id}}">delete</button>
+            <a href="/projects/update/{{this._id}}" class="btn btn-secondary">update</a>
           </div>
         </div>      
 

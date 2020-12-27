@@ -26443,3 +26443,12 @@ form {
   justify-content: center;
   min-height: 100vh;
 }
+
+@keyframes mymove {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

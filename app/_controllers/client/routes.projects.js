@@ -8,7 +8,8 @@ const Project = require('../../_models/Project');
 const {
   projects_get,
   projects_detail,
-  projects_add
+  projects_add,
+  projects_update
 } = require('./controllers.projects');
 
 // middleware
@@ -25,9 +26,16 @@ projectsRouter
   .route('/add') 
   .get(projects_add); 
 
+  projectsRouter
+  .route('update/:projectID')  
+  .get(projects_update)  
+
 projectsRouter
   .route('/:projectID')
   .get(projects_detail);  
+
+  
+
 
 module.exports = {
   projectsRouter

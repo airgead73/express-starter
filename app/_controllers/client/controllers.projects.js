@@ -45,7 +45,7 @@ exports.projects_add = asyncHandler(async function(req, res, next) {
 
  /**
  * @route   GET /:projectID
- * @desc    read all projects
+ * @desc    view one project
  * @access  private
  */
 
@@ -61,6 +61,27 @@ exports.projects_detail = asyncHandler(async function(req, res, next) {
       links: configureLinks('projects'),
       project
 
+    });
+
+});
+
+ /**
+ * @route   GET /:projectID/update
+ * @desc    update project
+ * @access  private
+ */
+
+exports.projects_update = asyncHandler(async function(req, res, next) {
+
+  const project = await Project.findById(req.params.projectID);
+
+  return res
+    .status(200)
+    .render('pages/projects/update', {
+      success: true,
+      title: `update ${project.code}`,
+      links: configureLinks('projects'),
+      project
     });
 
 });
