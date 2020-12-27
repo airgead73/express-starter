@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator')
 const bcrypt = require('bcryptjs');
-const { JWT_SECRET, JWT_EXP} = require('../config/env');
+const { ISDEV, JWT_SECRET, JWT_EXP} = require('../config/env');
 const jwt = require('jsonwebtoken');
 
 const UserSchema = new mongoose.Schema({
@@ -35,14 +35,6 @@ const UserSchema = new mongoose.Schema({
   }  
 });
 
-// UserSchema.post('save', function(doc, next) {
-
-//   console.log('new user was created and saved', doc);
-
-//   next();
-
-// });
-
 // Hash password
 UserSchema.pre('save', async function(next) {
 
@@ -53,56 +45,44 @@ UserSchema.pre('save', async function(next) {
 
 });
 
-UserSchema.statics.login = async function(credentials, res) {
+// Login user
+UserSchema.statics.login = async function(_credentials, res) {
 
-  const user = await this.findOne({ email: credentials.email }).select('password');
+  const { email, password } = _credentials;
 
-  if(!user) {
-    return res
-      .status(401)
-      .json({
-        success: false,
-        messages: [{ 
-          authentication: 'Incorrect email/password combination'
-        }]
-      });
 
-   }
+  const user = await this.findOne({ email }).select('password');
 
-   const auth = await bcrypt.compare(credentials.password, user.password);
+  if(user) {
 
-   if(!auth) {
-    return res
-      .status(401)
-      .json({
-        success: false,
-        messages: [{ 
-          authentication: 'Incorrect email/password combination'
-        }]
-      });
-   }
+    const auth = await bcrypt.compare(password, user.password);
 
-   return user;
+    if(auth) {
+      return user;
+    }
+
+    ISDEV && console.log('wrong password');
+
+  } 
+
+  ISDEV && console.log('wrong email');
+ 
 
 }
 
-// //Encrypt password
-// UserSchema.pre('save', async function(next) {
-//   const salt = await bcrypt.genSalt(10);
-//   this.password = await bcrypt.hash(this.password, salt);
-//   next();
-// });
-
-// // Sign JWT and return
-// UserSchema.methods.getSignedJwtToken = function() {
-//   return jwt.sign({ id: this.id }, JWT_SECRET, {
-//     expiresIn: JWT_EXP
-//   });
-// }
-
-// // Match user-entered password with db value
-// UserSchema.methods.matchPassword = async function(enteredPassword) {
-//   return await bcrypt.compare(enteredPassword, this.password);
-// }
+// Get token for logged in user
+UserSchema.methods.getToken = function() {
+  return jwt.sign({ id: this.id }, JWT_SECRET, {
+    expiresIn: JWT_EXP
+  });
+}
 
 module.exports = mongoose.model('User', UserSchema);
+
+// UserSchema.post('save', function(doc, next) {
+
+//   console.log('new user was created and saved', doc);
+
+//   next();
+
+// });

@@ -3,14 +3,6 @@ const User = require('../../_models/User');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET, ISDEV } = require('../../config/env');
 
-const maxAge = 3 * 24 * 60 * 60;
-
-const createToken = (id) => {
-  return jwt.sign({ id }, JWT_SECRET, {
-    expiresIn: maxAge
-  });
-}
-
 /**
  * @route   GET /
  * @desc    view signup page
@@ -69,22 +61,38 @@ exports.post_signup = asyncHandler(async function(req, res, next) {
 
 exports.post_login = asyncHandler(async function(req, res, next) {
 
-  const { email, password } = req.body;
-
-  const user = await User.login({email, password}, res);
-
-  const token = createToken(user._id);
-  res.cookie('jwt', token, {
+  const cookieOptions = {
     httpOnly: true,
-    maxAge: maxAge * 1000,
+    maxAge: 3 * 24 * 60 * 60 * 1000,
     secure: ISDEV ? false : true
-  });
+  }
 
-  return res
-    .status(200)
-    .json({
-      success: true, 
-      user: user._id 
-    });  
+  const { email, password } = req.body;  
+
+  try {
+
+    const user = await User.login({ email, password }, next);
+    const token = user.getToken();
+
+    return res  
+      .status(200)
+      .cookie('jwt', token, cookieOptions)
+      .json({
+        user: user._id
+      });
+
+  } catch(err) {
+
+    ISDEV && console.log(err);
+
+    return res
+      .status(400)
+      .json({
+        success: false,
+        messages: [
+          { authentication: 'Email and password combination does not match.'  }
+        ]
+      });
+  } 
 
 });

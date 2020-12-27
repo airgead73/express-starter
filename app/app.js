@@ -16,7 +16,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 const { RATE_LIMIT } = require('./config/env');
-const { requireAuth } = require('./_controllers/middleware/checkAuth');
+const { requireAuth, checkUser } = require('./_controllers/middleware/handleAuth');
 const session = require('express-session');
 const { SESSION_EXP, SESSION_SECRET, ISDEV } = require('./config/env');
 const SessionMemory = require('memorystore')(session);
@@ -105,10 +105,6 @@ if(ISDEV) {
 app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
-  res.locals.user = req.user || null;
-  res.locals.host = req.hostname;
-  res.locals.path = req.path;  
-  res.locals.username = null;
   next();
 }); 
 
@@ -116,7 +112,8 @@ app.use(function (req, res, next) {
  * @desc  AUTHENTICATION
  */
 
-//app.use(requireAuth);
+app.use(requireAuth);
+app.get('*', checkUser);
 
 /**
  * @desc LOAD ROUTES
