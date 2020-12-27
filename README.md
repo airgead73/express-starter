@@ -1,6 +1,6 @@
 # Express-Starter
 
-## v3 refactor error responses
+## v4 refactor auth check
 
 ### install
 
