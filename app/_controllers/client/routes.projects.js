@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const projectsRouter = Router();
+const { itemsRouter } = require('./routes.items');
 
 // models
 const Project = require('../../_models/Project');
@@ -15,9 +16,13 @@ const {
 // middleware
 const handleQuery = require('../middleware/handleQuery');
 
-// options
+// populate options
 const populate = [{ path: 'items', select: 'title' }];
 
+// nested routes
+projectsRouter.use('/:projectID/items', itemsRouter);
+
+// routes
 projectsRouter
   .route('/')
   .get(handleQuery(Project, populate), projects_get);

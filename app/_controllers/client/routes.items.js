@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const itemsRouter = Router();
+const itemsRouter = Router({ mergeParams: true });
 
 // models
 const Item = require('../../_models/Item');
