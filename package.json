@@ -46,7 +46,6 @@
   },
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
-    "bcryptjs": "^2.4.3",
     "cloudinary": "^1.23.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
@@ -61,7 +60,6 @@
     "helmet": "^4.2.0",
     "hpp": "^0.2.3",
     "http-errors": "^1.8.0",
-    "jsonwebtoken": "^8.5.1",
     "memorystore": "^1.6.4",
     "method-override": "^3.0.0",
     "moment": "^2.29.1",
