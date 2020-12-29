@@ -1,5 +1,4 @@
 const { body, validationResult } = require('express-validator');
-const User = require('../../_models/User');
 
 const validationRules = (method) => {
 

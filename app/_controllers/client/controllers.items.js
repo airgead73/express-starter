@@ -1,5 +1,4 @@
 const asyncHandler = require('../middleware/handleAsync');
-const { configureLinks } = require('../../config/nav');
 const Item = require('../../_models/Item');
 
  /**
@@ -25,28 +24,7 @@ exports.items_get = asyncHandler(async function(req, res, next) {
 
 });
 
- /**
- * @route   GET /add
- * @desc    view item add
- * @access  private
- */
-
-exports.items_add = asyncHandler(async function(req, res, next) {
-
-  const { projectID } = req.params;
-
-  return res
-    .status(200)
-    .render('pages/items/add', {
-      success: true,
-      title: 'add item',
-      links: configureLinks('items'),
-      projectID: projectID || null
-    });
-
-});
-
- /**
+/**
  * @route   GET /:itemID
  * @desc    view one item
  * @access  private
@@ -68,22 +46,3 @@ exports.items_detail = asyncHandler(async function(req, res, next) {
 
 });
 
- /**
- * @route   GET /:itemID/update
- * @desc    update item
- * @access  private
- */
-
-exports.items_update = asyncHandler(async function(req, res, next) {
-
-  const item = await Item.findById(req.params.itemID);
-
-  return res
-    .status(200)
-    .render('pages/items/update', {
-      success: true,
-      title: `update ${item.code}`,
-      item
-    });
-
-});

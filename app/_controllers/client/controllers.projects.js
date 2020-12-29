@@ -18,30 +18,12 @@ exports.projects_get = asyncHandler(async function(req, res, next) {
       title: 'projects',
       active: { projects: true },
       count: count,
-      projects: data,
-
+      projects: data
     });
 
 });
 
- /**
- * @route   GET /add
- * @desc    view project add
- * @access  private
- */
-
-exports.projects_add = asyncHandler(async function(req, res, next) {
-
-  return res
-    .status(200)
-    .render('pages/projects/add', {
-      success: true,
-      title: 'add project'
-    });
-
-});
-
- /**
+/**
  * @route   GET /:projectID
  * @desc    view one project
  * @access  private
@@ -59,27 +41,7 @@ exports.projects_detail = asyncHandler(async function(req, res, next) {
       success: true,
       title: `${project.code}`,
       project
-
     });
 
 });
 
- /**
- * @route   GET /:projectID/update
- * @desc    update project
- * @access  private
- */
-
-exports.projects_update = asyncHandler(async function(req, res, next) {
-
-  const project = await Project.findById(req.params.projectID);
-
-  return res
-    .status(200)
-    .render('pages/projects/update', {
-      success: true,
-      title: `update ${project.code}`,
-      project
-    });
-
-});

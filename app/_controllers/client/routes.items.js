@@ -7,9 +7,7 @@ const Item = require('../../_models/Item');
 // controllers
 const {
   items_get,
-  items_detail,
-  items_add,
-  items_update
+  items_detail
 } = require('./controllers.items');
 
 // middleware
@@ -23,19 +21,8 @@ itemsRouter
   .get(handleQuery(Item, populate), items_get);
 
 itemsRouter
-  .route('/add') 
-  .get(items_add); 
-
-  itemsRouter
-  .route('/update/:itemID')  
-  .get(items_update)  
-
-itemsRouter
   .route('/:itemID')
-  .get(items_detail);  
-
-  
-
+  .get(items_detail);   
 
 module.exports = {
   itemsRouter

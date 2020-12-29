@@ -10,13 +10,11 @@ const handleError = require('./_controllers/middleware/handleError');
 const helmet = require('helmet');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const hpp = require('hpp');
-
 const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 const { RATE_LIMIT } = require('./config/env');
-const { requireAuth, checkUser } = require('./_controllers/middleware/handleAuth');
 const session = require('express-session');
 const { SESSION_EXP, SESSION_SECRET, ISDEV } = require('./config/env');
 const SessionMemory = require('memorystore')(session);
@@ -52,16 +50,15 @@ const {
   truncate,
   stripTags,
   formatDate,
-  select,
-  checkActive,
-  checkCurrent
+  select
+
 } = require('./utils/hbs');
 
 app.set('views', path.join(__dirname, '_views'));
 app.set('view engine', 'hbs');
 app.engine('hbs', exphbs({
   handlebars: allowInsecurePrototypeAccess(Handlebars),
-  helpers: { truncate, stripTags, formatDate, select, checkActive, checkCurrent},
+  helpers: { truncate, stripTags, formatDate, select },
   defaultLayout: 'main',
   extname: '.hbs',
   layoutsDir: __dirname + '/_views/layouts',
@@ -109,25 +106,14 @@ app.use(function (req, res, next) {
 }); 
 
 /**
- * @desc  AUTHENTICATION
- */
-
-app.use(requireAuth);
-app.get('*', checkUser);
-
-/**
  * @desc LOAD ROUTES
  */
 
-const { authRouter } = require('./_controllers/auth'); 
 const { clientRouter } = require('./_controllers/client');
 const { apiRouter } = require('./_controllers/api');
 
-app.use(authRouter);
 app.use('/', clientRouter);
 app.use('/api', apiRouter);
-
-
 
 /**
  * @desc ERROR HANDLING

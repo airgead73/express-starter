@@ -4,25 +4,16 @@
 
 <body class="d-flex flex-column min-vh-100">
 
-  {{#if user}}
-
-  {{> _header}}
-
-  {{/if}}
-  
-  
+  {{> _header}} 
   
   <main>
   {{{body}}}
   </main>
 
-  {{#if user}}
-
   {{> _footer}} 
-
-  {{/if}} 
   
   {{> _scripts}}
+  
 </body>
 
 </html>

@@ -6,13 +6,8 @@ const Project = require('../../_models/Project');
 
 // controllers
 const {
-  create,
   read_all,
-  read_one,
-  update_one,
-  update_all,
-  delete_one,
-  delete_all
+  read_one
 } = require('./controllers.projects');
 
 // middleware
@@ -28,16 +23,11 @@ projectsRouter.use('/:projectID/resources', resourcesRouter);
 // routes
 projectsRouter
   .route('/')
-  .get(handleQuery(Project, populate), read_all)
-  .post(create)
-  .put(update_all)
-  .delete(delete_all);
+  .get(handleQuery(Project, populate), read_all);
 
 projectsRouter
   .route('/:projectID')
-  .get(read_one)
-  .put(update_one)
-  .delete(delete_one);
+  .get(read_one);
 
 module.exports = {
   projectsRouter,
