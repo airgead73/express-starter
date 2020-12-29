@@ -51,7 +51,9 @@ exports.projects_add = asyncHandler(async function(req, res, next) {
 
 exports.projects_detail = asyncHandler(async function(req, res, next) {
 
-  const project = await Project.findById(req.params.projectID)
+  const project = await Project.findById(req.params.projectID).populate({path: 'items', select: 'title'});
+
+  console.log(project);
 
   return res
     .status(200)

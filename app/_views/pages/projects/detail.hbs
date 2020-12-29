@@ -11,6 +11,17 @@
       <h2>{{project.title}}</h2>
       <h3>{{project.code}}</h3>
       <p>{{project.desc}}</p>
+      <p><a href="/projects/{{project._id}}/items/add">add item</a></p>
+      <hr>
+      {{#if project.items}}
+      <p>
+        {{#each project.items}}
+        <a href="/projects/{{project._id}}/items/{{this._id}}">{{this.title}}</a>&nbsp;|&nbsp;
+        {{/each}}
+      </p> 
+      {{else}}
+      <p>has no items</p>
+      {{/if}}
     </div>
   </div>  
 </section>

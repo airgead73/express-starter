@@ -33,12 +33,15 @@ exports.items_get = asyncHandler(async function(req, res, next) {
 
 exports.items_add = asyncHandler(async function(req, res, next) {
 
+  const { projectID } = req.params;
+
   return res
     .status(200)
     .render('pages/items/add', {
       success: true,
       title: 'add item',
-      links: configureLinks('items')
+      links: configureLinks('items'),
+      projectID: projectID || null
     });
 
 });
@@ -51,13 +54,13 @@ exports.items_add = asyncHandler(async function(req, res, next) {
 
 exports.items_detail = asyncHandler(async function(req, res, next) {
 
-  const item = await Item.findById(req.params.projectID)
+  const item = await Item.findById(req.params.itemID)
 
   return res
     .status(200)
     .render('pages/items/detail', {
       success: true,
-      title: `${item.code}`,
+      title: `${item.title}`,
       links: configureLinks('items'),
       item
 
