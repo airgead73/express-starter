@@ -3,9 +3,8 @@
 
     <div class="col-md-4 bg-secondary">
       <h3 class="text-center text-white mt-3">
-        {{title}}&nbsp;
-        <a href="/projects/add" class="btn btn-outline-light" title="add project">+</a>
-      </h3>
+        {{title}}
+    </h3>
     </div>
     
     <div class="col-md-8">
@@ -18,8 +17,6 @@
             <h6 class="card-subtitle mb-2 text-muted">{{this.code}}</h6>
             <p class="card-text">{{this.desc}}</p>            
             <a href="/projects/{{this._id}}" class="card-link">go to project</a>
-            <a href="/projects/update/{{this._id}}" class="card-link">update</a>
-            <button type="button" class="btn btn-link card-link" data-delete="projects" data-target="{{this._id}}">delete</button>
           </div>
         </div>  
 

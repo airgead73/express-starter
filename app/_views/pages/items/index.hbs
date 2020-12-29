@@ -3,7 +3,6 @@
     <div class="col-md-4 bg-secondary d-flex align-items-center justify-content-center">
       <h1 class="text-center text-white">
         {{title}}
-        <a href="/projects/add" class="btn btn-primary" title="add item">+</a>
       </h1>
       
     </div>
@@ -15,8 +14,6 @@
             <h5 class="card-title">{{this.code}}</h5>
             <p class="card-text">{{this.title}}</p>
             <a href="/projects/{{this._id}}" class="btn btn-secondary">go to item</a>
-            <button class="btn btn-secondary" data-delete="items" data-target="{{this._id}}">delete</button>
-            <a href="/items/update/{{this._id}}" class="btn btn-secondary">update</a>
           </div>
         </div>      
 
