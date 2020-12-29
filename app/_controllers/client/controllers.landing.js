@@ -1,6 +1,5 @@
 const asyncHandler = require('../middleware/handleAsync');
 const createError = require('http-errors');
-const { configureLinks } = require('../../config/nav')
 
 /**
  * @route   GET /
@@ -14,8 +13,7 @@ exports.landing = asyncHandler(async function(req, res, next) {
     .status(200)
     .render('pages/index', {
       success: true,
-      title: 'exress starter',
-      links: configureLinks('landing')
+      title: 'exress starter'
     });
 
 });
@@ -33,7 +31,7 @@ exports.about = asyncHandler(async function(req, res, next) {
     .render('pages/about', {
       success: true,
       title: 'about',
-      links: configureLinks('about')
+      active: { about: true }
     });
 
 });
@@ -51,7 +49,7 @@ exports.contact = asyncHandler(async function(req, res, next) {
     .render('pages/contact', {
       success: true,
       title: 'contact',
-      links: configureLinks('contact')
+      active: { contact: true }
     });
 
 });

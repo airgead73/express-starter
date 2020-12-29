@@ -1,5 +1,4 @@
 const asyncHandler = require('../middleware/handleAsync');
-const { configureLinks } = require('../../config/nav');
 const Project = require('../../_models/Project');
 
  /**
@@ -17,7 +16,7 @@ exports.projects_get = asyncHandler(async function(req, res, next) {
     .render('pages/projects/index', {
       success: success,
       title: 'projects',
-      links: configureLinks('projects'),
+      active: { projects: true },
       count: count,
       projects: data,
 
@@ -37,8 +36,7 @@ exports.projects_add = asyncHandler(async function(req, res, next) {
     .status(200)
     .render('pages/projects/add', {
       success: true,
-      title: 'add project',
-      links: configureLinks('projects')
+      title: 'add project'
     });
 
 });
@@ -60,7 +58,6 @@ exports.projects_detail = asyncHandler(async function(req, res, next) {
     .render('pages/projects/detail', {
       success: true,
       title: `${project.code}`,
-      links: configureLinks('projects'),
       project
 
     });
