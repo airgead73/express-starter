@@ -1,6 +1,6 @@
 # Express-Starter
 
-## v6 switch to bootstrap 5
+## v7 public read only
 
 ### install
 
