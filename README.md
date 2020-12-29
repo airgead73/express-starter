@@ -1,6 +1,6 @@
 # Express-Starter
 
-## v5 project client views
+## v6 switch to bootstrap 5
 
 ### install
 
