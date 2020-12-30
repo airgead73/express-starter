@@ -26849,16 +26849,6 @@ readers do not read off random characters that represent icons */
   font-weight: 900;
 }
 
-.container {
-  width: auto;
-  max-width: 680px;
-  padding: 0 15px;
-}
-
-main > .container {
-  padding: 60px 15px 0;
-}
-
 form {
   height: 100%;
 }
@@ -26878,11 +26868,16 @@ form {
   min-height: 100vh;
 }
 
-@keyframes mymove {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+#nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 16.6667%;
+  background-color: white;
+}
+
+.container--main,
+.container--header {
+  margin-left: 18%;
 }

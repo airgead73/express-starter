@@ -1,5 +1,4 @@
 const asyncHandler = require('../middleware/handleAsync');
-const { configureLinks } = require('../../config/nav');
 const Item = require('../../_models/Item');
 
  /**
@@ -17,7 +16,6 @@ exports.items_get = asyncHandler(async function(req, res, next) {
     .render('pages/items/index', {
       success: success,
       title: 'items',
-      links: configureLinks('items'),
       count: count,
       items: data,
 
@@ -39,8 +37,7 @@ exports.items_add = asyncHandler(async function(req, res, next) {
     .status(200)
     .render('pages/items/add', {
       success: true,
-      title: 'add item',
-      links: configureLinks('items'),
+      title: 'add item',      
       projectID: projectID || null
     });
 
@@ -61,7 +58,6 @@ exports.items_detail = asyncHandler(async function(req, res, next) {
     .render('pages/items/detail', {
       success: true,
       title: `${item.title}`,
-      links: configureLinks('items'),
       item
 
     });
